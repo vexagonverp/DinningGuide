@@ -6,7 +6,6 @@ using System.Data.Entity.Spatial;
 namespace Dinning_Guide.Models.User
 {
    
-
     public partial class User
     {
         [Key]
