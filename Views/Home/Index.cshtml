@@ -2,21 +2,41 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row justify-content-md-start">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                Wellcome Sa
+<div id="Introduction">
+    <div class="jumbotron">
+        <h1>Enhance your dining experience with Salt</h1>
+        <div class="form-group"><input type="text" class="form-control form-rounded" name="search" placeholder="Restaurants/Takeout/Delivery" action="haha.html" /></div>
+        <p></p>
+        <p></p>
+    </div>
+</div>
+<div id="Feature">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center">Join Salt with 100,000,000 + registered users</h2>
+            <p class="text-center">Thriving community with millions of food enthusiasts</p>
+        </div>
+        <div class="row features">
+            <div class="col-sm-6 col-lg-4 item">
+                <i class="fa fa-map-marker icon"></i>
+                <h3 class="name">Thousands of registered restaurants </h3>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
-            <div class="card-body">
-                @if (Session["FullName"] != null)
-                {
-                    <p>Name: @Session["FullName"].ToString()</p>
-                    <p>Email: @Session["Email"].ToString()</p>
-                    <a href="@Url.Action("Logout","Home")" class="btn btn-warning">Logout</a>
-                }
+            <div class="col-sm-6 col-lg-4 item">
+                <i class="fa fa-list-alt icon"></i>
+                <h3 class="name">Dedicated community</h3>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 item">
+                <i class="fa fa-leaf icon"></i>
+                <h3 class="name">Enjoy cuisine like never before</h3>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 item">
+                <i class="fa fa-plane icon"></i>
+                <h3 class="name">Access to reviews and ratings anywhere</h3>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
         </div>
-
     </div>
 </div>

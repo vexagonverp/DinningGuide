@@ -24,7 +24,10 @@ namespace Dinning_Guide
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/styles.min.css",
+                      "~/Fonts/fontawesome-webfont.woff",
+                      "~/Fonts/ionicons.woff").Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())
+                      .Include("~/Content/ionicons.min.css", new CssRewriteUrlTransform()));
         }
     }
 }

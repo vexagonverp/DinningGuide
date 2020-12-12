@@ -23,7 +23,8 @@ namespace Dinning_Guide.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                //return RedirectToAction("Login");
+                return View();
             }
         }
 
@@ -97,6 +98,8 @@ namespace Dinning_Guide.Controllers
             Session.Clear();//remove session
             return RedirectToAction("Login");
         }
+
+
 
         //create a string MD5
         public static string GetMD5(string str)
