@@ -1,17 +1,33 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+}
+<div class="team-clean">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center">Meet the team</h2>
+            <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
+        </div>
+        <div class="row people">
+            <div class="col-md-6 col-lg-4 item">
+                <img class="rounded-circle" src="https://images.pexels.com/photos/5591660/pexels-photo-5591660.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" />
+                <h3 class="name">Ben Johnson</h3>
+                <p class="title">Benjohnson@gmail.com</p>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+            </div>
+            <div class="col-md-6 col-lg-4 item">
+                <img class="rounded-circle" src="https://images.pexels.com/photos/5591671/pexels-photo-5591671.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" />
+                <h3 class="name">Emily Clark</h3>
+                <p class="title">Emilyclark@gmail.com</p>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+            </div>
+            <div class="col-md-6 col-lg-4 item">
+                <img class="rounded-circle" src="https://images.pexels.com/photos/5591658/pexels-photo-5591658.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" />
+                <h3 class="name">Carl Kent</h3>
+                <p class="title">Carlkent@gmail.com</p>
+                <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+            </div>
+        </div>
+    </div>
+</div>

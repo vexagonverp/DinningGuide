@@ -5,27 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-            <div id="register-login" class="card-body">
+            <div id="register-login" class="login">
                 <div class="form-container">
                     <div class="image-holder"></div>
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                     {
-                        <form method"post">
+                        <form method="post">
                             <h2 class="text-center"><strong>Login</strong> to your account.</h2>
                             @Html.AntiForgeryToken()
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Email)
                                 @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
 
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Password)
+                                
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Login" />
                             </div>
-                            <a class="already" href="register.cshtml">Don&#39;t have an account? Sign Up here.</a>
+                            <a class="already" href="Register">Don&#39;t have an account? Sign Up here.</a>
                         </form>
                     }
                 </div>

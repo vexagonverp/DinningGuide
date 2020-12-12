@@ -21,7 +21,8 @@ namespace Dinning_Guide.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                //return RedirectToAction("Login");
+                return View();
             }
         }
 
@@ -101,8 +102,16 @@ namespace Dinning_Guide.Controllers
             return RedirectToAction("Login");
         }
 
-
-
+        //About
+        public ActionResult About()
+        {
+            return View();
+        }
+        //Contact
+        public ActionResult Contact()
+        {
+            return View();
+        }
         //create a string MD5
         public static string GetMD5(string str)
         {
