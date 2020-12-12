@@ -1,4 +1,5 @@
 ﻿@model Dinning_Guide.Models.User.User
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +8,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                 Login
+                Login
             </div>
             <div class="card-body">
                 @using (Html.BeginForm("Login", "Home", FormMethod.Post))

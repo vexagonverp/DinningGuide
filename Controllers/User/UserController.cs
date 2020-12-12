@@ -9,7 +9,7 @@ using Dinning_Guide.Models.User;
 
 namespace Dinning_Guide.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         private DB_Entities _db = new DB_Entities();
         // GET: Home
@@ -67,12 +67,14 @@ namespace Dinning_Guide.Controllers
         }
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
             if (ModelState.IsValid)
             {
+
 
                 var f_password = GetMD5(password);
                 var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
@@ -118,6 +120,7 @@ namespace Dinning_Guide.Controllers
             }
             return byte2String;
         }
+
 
     }
 }
