@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using Dinning_Guide.Models.User;
+using Dinning_Guide.Models.Restaurant;
+using PagedList;
 
 namespace Dinning_Guide.Controllers
 {
@@ -26,7 +28,6 @@ namespace Dinning_Guide.Controllers
         }
 
         //GET: Register
-
         public ActionResult Register()
         {
             return View();
@@ -35,7 +36,7 @@ namespace Dinning_Guide.Controllers
         //POST: Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User _user)
+        public ActionResult Register(Models.User.User _user)
         {
             if (ModelState.IsValid)
             {
@@ -43,6 +44,7 @@ namespace Dinning_Guide.Controllers
                 if (check == null)
                 {
                     _user.Password = GetMD5(_user.Password);
+                    _user.idUser++ ;
                     _db.Configuration.ValidateOnSaveEnabled = false;
                     _db.Users.Add(_user);
                     _db.SaveChanges();
@@ -53,12 +55,8 @@ namespace Dinning_Guide.Controllers
                     ViewBag.error = "Email already exists";
                     return View();
                 }
-
-
             }
             return View();
-
-
         }
 
         public ActionResult Login()
@@ -93,15 +91,12 @@ namespace Dinning_Guide.Controllers
             return View();
         }
 
-
         //Logout
         public ActionResult Logout()
         {
             Session.Clear();//remove session
             return RedirectToAction("Login");
         }
-
-
 
         //create a string MD5
         public static string GetMD5(string str)
@@ -118,6 +113,71 @@ namespace Dinning_Guide.Controllers
             }
             return byte2String;
         }
+        
+        /// ---------------------------------------------------------
+        Db_Restaurants db1 = new Db_Restaurants();
+        public ActionResult Index1(string option, string search, int? pageNumber, string sort)
+        {
+            //if the sort parameter is null or empty then we are initializing the value as descending name  
+            ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
+            //if the sort value is gender then we are initializing the value as descending gender  
+            ViewBag.SortByDescription = sort == "Description" ? "descending description" : "Description";
 
+            //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
+            var records = db1.Restaurants.AsQueryable();
+
+            //if a user choose the radio button option as Description  
+            if (option == "Description")
+            {
+                return View(db1.Restaurants.Where(x => x.Description == search || search == null).ToList().ToPagedList(pageNumber ?? 1,3));
+            }
+            else if (option == "Address")
+            {
+                return View(db1.Restaurants.Where(x => x.Address == search || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            }
+            else if (option == "Rate")
+            {
+                return View(db1.Restaurants.Where(x => x.Rate == search || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            }
+            else if (option == "Review")
+            {
+                return View(db1.Restaurants.Where(x => x.Review == search || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            }
+            else
+            {
+                return View(db1.Restaurants.Where(x => x.Name.StartsWith(search) || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            }
+
+            switch (sort)
+            {
+
+                case "descending name":
+                    records = records.OrderByDescending(x => x.Name);
+                    break;
+
+                case "descending description":
+                    records = records.OrderByDescending(x => x.Description);
+                    break;
+
+                case "descending rate":
+                    records = records.OrderByDescending(x => x.Rate);
+                    break;
+
+                case "Description":
+                    records = records.OrderBy(x => x.Description);
+                    break;
+
+                default:
+                    records = records.OrderBy(x => x.Name);
+                    break;
+
+            }
+        }
+
+        //GET: Detail
+        public ActionResult Details(int ID)
+        {
+            return View();
+        }
     }
 }
