@@ -5,7 +5,13 @@
 <div id="Introduction">
     <div class="jumbotron">
         <h1>Enhance your dining experience with Salt</h1>
-        <div class="form-group"><input type="text" class="form-control form-rounded" name="search" placeholder="Restaurants/Takeout/Delivery" action="haha.html" /></div>
+        <div class="form-group">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                @Html.TextBox("search", null, new { @class = "form-rounded" , @placeholder = "Restaurants/Deliveries/Takeouts" })
+                <input class="btn action-button" type="submit" name="submit" value="Search"/>
+            }
+        </div>
         <p></p>
         <p></p>
     </div>
