@@ -15,16 +15,20 @@ namespace Dinning_Guide.Controllers
     {
         private DB_Entities _db = new DB_Entities();
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             if (Session["idUser"] != null)
             {
+                if (search!=null)return RedirectToAction("Index1",new {option="Name",search=search,pageNumber=1,sort= "descending name" });
                 return View();
+                
             }
             else
             {
                 //return RedirectToAction("Login");
+                if (search != null)return RedirectToAction("Index1", new { option = "Name", search = search, pageNumber = 1, sort = "descending name" });
                 return View();
+                
             }
         }
 
