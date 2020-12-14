@@ -194,9 +194,18 @@ namespace Dinning_Guide.Controllers
         }
 
         //GET: Detail
-        public ActionResult Details(int ID)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return RedirectToAction("../Home/Index1");
+            }
+            Restaurant restaurant = db1.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(restaurant);
         }
     }
 }
