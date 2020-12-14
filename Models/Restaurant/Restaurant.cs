@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Spatial;
 namespace Dinning_Guide.Models.Restaurant
 {
-   
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     public partial class Restaurant
     {
@@ -18,10 +17,6 @@ namespace Dinning_Guide.Models.Restaurant
         [Required]
         public string Address { get; set; }
 
-        public string Description { get; set; }
-
-        public string Rate { get; set; }
-
-        public string Review { get; set; }
+        public double? Rate { get; set; }
     }
 }

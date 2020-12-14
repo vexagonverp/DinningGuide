@@ -1,10 +1,11 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+
 namespace Dinning_Guide.Models.Restaurant
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class Db_Restaurants : DbContext
     {
         public Db_Restaurants()
@@ -16,6 +17,10 @@ namespace Dinning_Guide.Models.Restaurant
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Restaurant>().ToTable("Restaurants");
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
