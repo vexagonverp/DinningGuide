@@ -7,7 +7,9 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using Dinning_Guide.Models.User;
 using Dinning_Guide.Models.Restaurant;
+using Dinning_Guide.Models.Rate;
 using PagedList;
+using System.Web.Security;
 
 namespace Dinning_Guide.Controllers
 {
@@ -99,6 +101,7 @@ namespace Dinning_Guide.Controllers
         //Logout
         public ActionResult Logout()
         {
+            FormsAuthentication.SignOut();
             Session.Clear();//remove session
             return RedirectToAction("Login");
         }
@@ -123,7 +126,7 @@ namespace Dinning_Guide.Controllers
         
         /// ---------------------------------------------------------
         Db_Restaurants db1 = new Db_Restaurants();
-        public ActionResult Index1(string option, string search, int? pageNumber, string sort)
+        public ActionResult Index1(string option, string search, float rate, int? pageNumber, string sort)
         {
             //if the sort parameter is null or empty then we are initializing the value as descending name  
             ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
@@ -134,22 +137,16 @@ namespace Dinning_Guide.Controllers
             var records = db1.Restaurants.AsQueryable();
 
             //if a user choose the radio button option as Description  
-            if (option == "Description")
-            {
-                records = records.Where(x => x.Description == search || search == null);
-            }
-            else if (option == "Address")
+            
+            if (option == "Address")
             {
                 records = records.Where(x => x.Address == search || search == null);
             }
             else if (option == "Rate")
             {
-                records = records.Where(x => x.Rate == search || search == null);
+                records = records.Where(x => x.Rate == rate || search == null);
             }
-            else if (option == "Review")
-            {
-                records = records.Where(x => x.Review == search || search == null);
-            }
+           
             else
             {
                 records = records.Where(x => x.Name.StartsWith(search) || search == null);
@@ -162,16 +159,12 @@ namespace Dinning_Guide.Controllers
                     records = records.OrderByDescending(x => x.Name);
                     break;
 
-                case "descending description":
-                    records = records.OrderByDescending(x => x.Description);
-                    break;
-
                 case "descending rate":
                     records = records.OrderByDescending(x => x.Rate);
                     break;
 
                 case "Description":
-                    records = records.OrderBy(x => x.Description);
+                    records = records.OrderBy(x => x.Address);
                     break;
 
                 default:
@@ -183,10 +176,19 @@ namespace Dinning_Guide.Controllers
             return View(records.ToPagedList(pageNumber ?? 1, 3));
         }
 
-        //GET: Detail
-        public ActionResult Details(int ID)
+        ///LOGOUT///---------------------------------------------
+        public ActionResult ViewProfile()
         {
-            return View();
+            return RedirectToAction("Index1");
         }
+
+        ///ADD REVIEW ///-----------------------------------------
+        private Db_Rates db2 = new Db_Rates();
+        [HttpPost]
+        public ActionResult AddReview()
+        {
+            return RedirectToAction("CreateReview");
+        }
+
     }
 }
