@@ -22,22 +22,32 @@ namespace Dinning_Guide.Controllers
             if (Session["idUser"] != null)
             {
                 if (search!=null)return RedirectToAction("Index1",new {option="Name",search=search,pageNumber=1,sort= "descending name" });
-                return View();
+                return View("../Home/Index");
                 
             }
             else
             {
                 //return RedirectToAction("Login");
                 if (search != null)return RedirectToAction("Index1", new { option = "Name", search = search, pageNumber = 1, sort = "descending name" });
-                return View();
+                return View("../Home/Index");
                 
             }
+        }
+
+        public ActionResult About()
+        {
+            return View("../Home/About");
+        }
+
+        public ActionResult Contact()
+        {
+            return View("../Home/Contact");
         }
 
         //GET: Register
         public ActionResult Register()
         {
-            return View();
+            return View("../Home/Register");
         }
 
         //POST: Register
@@ -55,7 +65,7 @@ namespace Dinning_Guide.Controllers
                     _db.Configuration.ValidateOnSaveEnabled = false;
                     _db.Users.Add(_user);
                     _db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("../Home/Index");
                 }
                 else
                 {
@@ -68,7 +78,7 @@ namespace Dinning_Guide.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            return View("../Home/Login");
         }
 
 
@@ -87,12 +97,12 @@ namespace Dinning_Guide.Controllers
                     Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
                     Session["Email"] = data.FirstOrDefault().Email;
                     Session["idUser"] = data.FirstOrDefault().idUser;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("../Home/Index");
                 }
                 else
                 {
                     ViewBag.error = "Login failed";
-                    return RedirectToAction("Login");
+                    return RedirectToAction("../Home/Login");
                 }
             }
             return View();
@@ -103,7 +113,7 @@ namespace Dinning_Guide.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();//remove session
-            return RedirectToAction("Login");
+            return RedirectToAction("../Home/Login");
         }
 
 
@@ -188,6 +198,19 @@ namespace Dinning_Guide.Controllers
         public ActionResult AddReview()
         {
             return RedirectToAction("CreateReview");
+        //GET: Detail
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("../Home/Index1");
+            }
+            Restaurant restaurant = db1.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(restaurant);
         }
 
     }
