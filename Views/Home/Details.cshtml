@@ -22,42 +22,45 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Rate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Rate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Review)
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Review)
+        </dd>
         <!--<dd>
-            <table class="table">
+        <table class="table">
+            <tr>
+                <th>Course Title</th>
+                <th>Grade</th>
+            </tr>
+            foreach (var item in Model.Enrollments)
+            {
                 <tr>
-                    <th>Course Title</th>
-                    <th>Grade</th>
+                    <td>
+                        Html.DisplayFor(modelItem => item.Course.Title)
+                    </td>
+                    <td>
+                        Html.DisplayFor(modelItem => item.Grade)
+                    </td>
                 </tr>
-                foreach (var item in Model.Enrollments)
-                {
-                    <tr>
-                        <td>
-                            Html.DisplayFor(modelItem => item.Course.Title)
-                        </td>
-                        <td>
-                            Html.DisplayFor(modelItem => item.Grade)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </dd>-->
+            }
+        </table>
+    </dd>-->
     </dl>
 </div>
 <p>
