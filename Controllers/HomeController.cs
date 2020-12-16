@@ -137,7 +137,7 @@ namespace Dinning_Guide.Controllers
 
         /// ---------------------------------------------------------
         Db_Restaurants db1 = new Db_Restaurants();
-        public ActionResult Index1(string option, string search, float rate, int? pageNumber, string sort)
+        public ActionResult Index1(string option, string search, double? rate, int? pageNumber, string sort)
         {
             //if the sort parameter is null or empty then we are initializing the value as descending name  
             ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";

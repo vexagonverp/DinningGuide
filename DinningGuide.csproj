@@ -434,6 +434,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Home\CreateReview.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
