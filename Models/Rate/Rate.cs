@@ -9,7 +9,7 @@ namespace Dinning_Guide.Models.Rate
     public partial class Rate
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDReview { get; set; }
 
         public int IDRestaurant { get; set; }

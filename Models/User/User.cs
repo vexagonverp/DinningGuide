@@ -9,7 +9,7 @@ namespace Dinning_Guide.Models.User
     public partial class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
 
         [StringLength(50)]
