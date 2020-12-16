@@ -17,6 +17,9 @@ namespace Dinning_Guide.Models.Restaurant
         [Required]
         public string Address { get; set; }
 
+        [Required]
+        public string Decription { get; set; }
+
         public double? Rate { get; set; }
     }
 }

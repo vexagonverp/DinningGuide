@@ -9,7 +9,7 @@ namespace Dinning_Guide.Models.Restaurant
     public partial class Db_Restaurants : DbContext
     {
         public Db_Restaurants()
-            : base("name=Restaurants")
+            : base("name=Db_Restaurants")
         {
         }
 
