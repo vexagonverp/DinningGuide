@@ -4,22 +4,24 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 
-namespace Dinning_Guide.Models.Restaurant
+namespace Dinning_Guide.Models.Rate
 {
-    public partial class Db_Restaurants : DbContext
+    public partial class Db_Rates : DbContext
     {
-        public Db_Restaurants()
-            : base("name=Db_Restaurants")
+        public Db_Rates()
+            : base("name=Db_Rates")
         {
         }
 
-        public virtual DbSet<Restaurant> Restaurants { get; set; }
+        public virtual DbSet<Rate> Rates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Restaurant>().ToTable("Restaurants");
+            modelBuilder.Entity<Rate>()
+                .HasOptional(e => e.Rates1)
+                .WithRequired(e => e.Rate2);
+            modelBuilder.Entity<Rate>().ToTable("Rates");
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
             base.OnModelCreating(modelBuilder);
         }
     }

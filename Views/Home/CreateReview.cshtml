@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "CreateReview";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> CreateReview </title>
+</head>
+<body>
+    <div>
+        <form action="~/Views/Home/CreateReview.cshtml" method="post">
+            Rate: <input type="text" id="TxtRate" name="Rate" value="" /><br />
+            Review: <input type="text" id="TxtReview" name="Review" value="" /><br />
+            <input type="submit" name="BtnSave" value="Save Review" />
+            <input type="button" name="BtnReset" value="Reset" />
+        </form>
+    </div>
+</body>
+</html>
