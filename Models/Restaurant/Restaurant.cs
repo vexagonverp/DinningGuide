@@ -8,7 +8,7 @@ namespace Dinning_Guide.Models.Restaurant
 
     public partial class Restaurant
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         [Required]
