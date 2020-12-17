@@ -20,10 +20,20 @@
                         <div class="dropdown-menu"><a class="dropdown-item" href="#">Featured restaurants</a><a class="dropdown-item" href="../Home/About">About us</a><a class="dropdown-item" href="../Home/Contact">Contact us</a></div>
                     </li>
                
-                </ul><span class="navbar-text actions">
-                <a class="login" href="../Home/Login">Log In</a>
-                <a class="btn btn-light action-button" role="button" href="../Home/Register">Sign Up</a>
-                </span>
+                </ul>
+                @if (Session["FullName"] != null)
+                 {
+                     <span class="navbar-text actions">
+                        <a class="btn btn-light action-button" role="button" href="@Url.Action("Logout","Home")" >Log Out</a>
+                     </span>
+                 }
+                 else
+                 {
+                     <span class="navbar-text actions">
+                        <a class="login" href="../Home/Login">Log In</a>
+                        <a class="btn btn-light action-button" role="button" href="../Home/Register">Sign Up</a>
+                     </span>
+                 }
             </div>
         </div>
     </nav>
