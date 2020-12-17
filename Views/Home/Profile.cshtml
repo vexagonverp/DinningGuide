@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="Prof_page">
+
+    <div class="info">
+        <h1>Profile</h1>
+        @if (Session["FullName"] != null)
+        {
+            <h2>@Session["FullName"].ToString()</h2><p>@Session["Email"].ToString()</p>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("Index","Home")">Back To Home</a>
+        }
+        else
+        {
+            <p><i>(Login to see the full information)</i></p>
+        }
+
+    </div>
+
+</div>

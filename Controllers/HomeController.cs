@@ -117,6 +117,10 @@ namespace Dinning_Guide.Controllers
             return RedirectToAction("../Home/Login");
         }
 
+        public ActionResult Profile()
+        {
+            return View();
+        }
 
 
         //create a string MD5
