@@ -68,7 +68,7 @@
         background-color: rgba(255,255,255,.9)
     }
 
-    #Feature h2, #Introduction h1 {
+    #Feature h2, #Introduction h1,#Prof_page h1 {
         font-weight: 700;
         margin-bottom: 2.5rem;
         padding-top: 2.5rem;
@@ -89,9 +89,9 @@
     }
 #Prof_page {
     margin-top: 2rem;
-    padding: 2.5rem;
+    padding: 5rem 0;
     text-align: center;
-    background: url(https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80) center/cover
+    background: url(https://image.freepik.com/free-vector/spices-kitchen-pattern_8365-160.jpg)
 }
 
     #Prof_page .info {
@@ -101,11 +101,11 @@
         background-color: rgba(255,255,255,.9)
     }
 
-#Feature {
-    color: #313437;
-    background-color: #fff;
-    padding-bottom: 2rem
-}
+    #Feature {
+        color: #313437;
+        background-color: #fff;
+        padding-bottom: 2rem
+    }
 
     #Feature p, .team-clean p {
         color: #7d8285
@@ -143,7 +143,7 @@
             margin-left: -4rem
         }
 
-#Introduction .action-button, #restaurantSearch .action-button {
+#Introduction .action-button, #restaurantSearch .action-button,#Prof_page .info .action-button {
     background: #f4a1ab;
     border-radius: 20px;
     font-size: 16px;
@@ -158,11 +158,11 @@
     font-size: inherit
 }
 
-    #Introduction .action-button:active, #restaurantSearch .action-button:active, .navigation-clean-button.navbar-dark .action-button, .navigation-clean-button.navbar-dark .action-button:active {
+    #Introduction .action-button:active, #restaurantSearch .action-button:active,#Prof_page .action-button:active, .navigation-clean-button.navbar-dark .action-button, .navigation-clean-button.navbar-dark .action-button:active {
         background: #f4a1ab
     }
 
-        #Introduction .action-button:hover, #register-login form .btn-primary:active, #register-login form .btn-primary:hover, #restaurantSearch .action-button:hover, .navigation-clean-button .navbar-text .action-button:hover, .navigation-clean-button.navbar-dark .action-button:hover, .register-photo form .btn-primary:active {
+        #Introduction .action-button:hover,#Prof_page .action-button:hover, #register-login form .btn-primary:active, #register-login form .btn-primary:hover, #restaurantSearch .action-button:hover, .navigation-clean-button .navbar-text .action-button:hover, .navigation-clean-button.navbar-dark .action-button:hover, .register-photo form .btn-primary:active {
             background: #ffc0c7
         }
 
