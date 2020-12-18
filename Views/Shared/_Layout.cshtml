@@ -24,7 +24,7 @@
                 @if (Session["FullName"] != null)
                  {
                      <span class="navbar-text actions">
-                        <a class="login" href="~@Url.Action("Logout","Home")">Log Out</a>
+                        <a class="login" href="@Url.Action("Logout","Home")">Log Out</a>
                         <a class="btn btn-light action-button" role="button" href="@Url.Action("Profile","Home")" >Profile</a>
                      </span>
                  }

@@ -14,10 +14,8 @@
                             @Html.AntiForgeryToken()
                             <div class="form-group">
                                 @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
-
                             </div>
                             <div class="form-group">
-                                
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                             </div>
                             <div class="form-group">

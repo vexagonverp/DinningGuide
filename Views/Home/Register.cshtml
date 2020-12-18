@@ -15,7 +15,6 @@
             <form method="post">
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
                     <div class="form-group">
-                       
                         @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control", @placeholder = "First Name" })
                         @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "badge badge-danger" })
                     </div>

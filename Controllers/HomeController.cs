@@ -203,25 +203,33 @@ namespace Dinning_Guide.Controllers
 
         ///ADD REVIEW ///-----------------------------------------
         private Db_Rates db2 = new Db_Rates();
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateReview()
         {
             return View();
         }
-        public ActionResult CreateReview(int? id,int? userId,Models.Rate.Rate rate)
+        public ActionResult CreateReview(Models.Rate.Rate rate, int? id,int? userId)
         {
 
             if (ModelState.IsValid)
-            {
-                if (userId == null) RedirectToAction("Login", "Home");
+            {    
+                try
+                {
+                    if((int)id==null||(int)userId==null) return RedirectToAction("Index1", "Home");
+                }
+                catch(System.InvalidOperationException){
+                    return RedirectToAction("Index1", "Home");
+                }
                 rate.IDRestaurant = (int)id;
                 rate.IDUser = (int)userId;
                 rate.IDReview++;
-                _db.Configuration.ValidateOnSaveEnabled = true;
+                db2.Configuration.ValidateOnSaveEnabled = true;
                 db2.Rates.Add(rate);
                 db2.SaveChanges();
-                RedirectToAction("Index1","Home");
+                RedirectToAction("Index1", "Home");
             }
             else
             {
@@ -260,7 +268,7 @@ namespace Dinning_Guide.Controllers
                 return HttpNotFound();
             }
             ViewBag.restaurantId = (int)id;
-            return View();
+            return View(restaurant);
         }
     }
 }

@@ -16,21 +16,22 @@
         <h2>
             @Html.DisplayNameFor(model => model.Name)
         </h2>
-        <p>
-            @Html.DisplayFor(model => model.Name)
-        </p>
+        <h2>
+            @Html.DisplayFor(model => model.Name).ToHtmlString()
+        </h2>
         <h2>
             @Html.DisplayNameFor(model => model.Rate)
         </h2>
-        <p>
-            @Html.DisplayFor(model => model.Rate)
-        </p>
+        <h2>
+            @Html.DisplayFor(model => model.Rate).ToHtmlString()
+        </h2>
 
         @if (Session["FullName"] != null)
         {
             <p>
                 @Html.ActionLink("Review", "CreateReview", new { id = @ViewBag.restaurantId, userId = @Session["idUser"] })
             </p>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId, userId = @Session["idUser"] })">Review</a>
         }
         else
         {

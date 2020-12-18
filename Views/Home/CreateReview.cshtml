@@ -3,8 +3,6 @@
 @model Dinning_Guide.Models.Rate.Rate
 @{
     ViewBag.Title = "CreateReview";
-}
-@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
@@ -14,14 +12,27 @@
     <title> CreateReview </title>
 </head>
 <body>
-    <div>
-        <form action=@Url.Action("CreateReview","Home") method="post">
-
-            Rate: <input type="text" id="TxtRate" name="Rate" value="" /><br />
-            Review: <input type="text" id="TxtReview" name="Review" value="" /><br />
-            <input type="submit" name="BtnSave" value="Save Review" />
-            <input type="button" name="BtnReset" value="Reset" />
-        </form>
+    <div id="bgSearch">
+        <div class="form-container">
+            @using (Html.BeginForm("CreateReview","Home",FormMethod.Post))
+            {
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Rate1, "", new { @class = "form-control", @placeholder = "Rating" })
+                        @Html.ValidationMessageFor(m => m.Rate1, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Review, "", new { @class = "form-control", @placeholder = "Review" })
+                        @Html.ValidationMessageFor(m => m.Review, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit" />
+                    </div>
+                    <input type="button" name="BtnReset" value="Reset" />
+                </form>
+            }
+        </div>
     </div>
 </body>
 </html>
