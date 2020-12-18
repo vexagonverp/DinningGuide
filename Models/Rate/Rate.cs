@@ -14,6 +14,8 @@ namespace Dinning_Guide.Models.Rate
 
         public int IDRestaurant { get; set; }
 
+        public int IDUser { get; set; }
+
         [Column("Rate")]
         public double Rate1 { get; set; }
 

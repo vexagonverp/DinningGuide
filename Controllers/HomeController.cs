@@ -205,41 +205,40 @@ namespace Dinning_Guide.Controllers
         private Db_Rates db2 = new Db_Rates();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateReview([Bind(Include ="Rate,Review")] Rate rate)
+        public ActionResult CreateReview(Models.Rate.Rate rate)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db2.Rates.Add(rate);
-                    db2.SaveChanges();
-                    return RedirectToAction("CreateReview");
-                }
+                rate.IDReview++;
+                _db.Configuration.ValidateOnSaveEnabled = true;
+                db2.Rates.Add(rate);
+                db2.SaveChanges();
+                RedirectToAction("../Home/Index1");
             }
-            catch(DataException)
+            else
             {
                 ModelState.AddModelError("", "Unable to save changes.Try again.");
+                return View();
             }
-            return View(rate);
+            return View("CreateReview");
         }
-
-        public ActionResult DeleteReview(int IDReview)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Models.Rate.Rate rate, int IDReview)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    Rate rate = db2.Rates.Find(IDReview);
-                    db2.Rates.Remove(rate);
-                    db2.SaveChanges();
-                    return RedirectToAction("CreateReview");
-                }
+                rate = db2.Rates.Find(IDReview);
+                db2.Rates.Remove(rate);
+                db2.SaveChanges();
+                return RedirectToAction("../Home/Index1");
             }
-            catch (DataException)
+            else
             {
-                return RedirectToAction("Delete", new { id = IDReview, saveChangesError = true });
+                return View();
             }
-            return RedirectToAction("Index1");
+            
         }
 
         public ActionResult Details(int? id)
@@ -253,7 +252,7 @@ namespace Dinning_Guide.Controllers
             {
                 return HttpNotFound();
             }
-            return View(restaurant);
+            return View();
         }
     }
 }

@@ -23,5 +23,7 @@ namespace Dinning_Guide.Models.User
 
         [StringLength(50)]
         public string Password { get; set; }
+
+        public int Type { get; set; }
     }
 }

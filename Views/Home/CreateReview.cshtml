@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Data.Entity;
+@using System.Linq;
+@model Dinning_Guide.Models.Rate.Rate
 @{
     ViewBag.Title = "CreateReview";
 }
@@ -14,6 +16,7 @@
 <body>
     <div>
         <form action="~/Views/Home/CreateReview.cshtml" method="post">
+
             Rate: <input type="text" id="TxtRate" name="Rate" value="" /><br />
             Review: <input type="text" id="TxtReview" name="Review" value="" /><br />
             <input type="submit" name="BtnSave" value="Save Review" />
