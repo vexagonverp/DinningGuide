@@ -19,7 +19,5 @@ namespace Dinning_Guide.Models.Rate
         public double Rate1 { get; set; }
 
         public string Review { get; set; }
-        public virtual Rate Rates1 { get; set; }
-        public virtual Rate Rate2 { get; set; }
     }
 }

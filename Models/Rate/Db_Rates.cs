@@ -1,11 +1,11 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-
 namespace Dinning_Guide.Models.Rate
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Linq;
+
     public partial class Db_Rates : DbContext
     {
         public Db_Rates()
@@ -17,11 +17,9 @@ namespace Dinning_Guide.Models.Rate
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Rate>()
-                .HasOptional(e => e.Rates1)
-                .WithRequired(e => e.Rate2);
             modelBuilder.Entity<Rate>().ToTable("Rates");
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             base.OnModelCreating(modelBuilder);
         }
     }
