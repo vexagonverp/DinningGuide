@@ -205,24 +205,24 @@ namespace Dinning_Guide.Controllers
         private Db_Rates db2 = new Db_Rates();
 
 
+        
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateReview()
-        {
-            return View();
-        }
-        public ActionResult CreateReview(Models.Rate.Rate rate, int? id,int? userId)
+        public ActionResult CreateReview(Models.Rate.Rate rate, int? id)
         {
 
             if (ModelState.IsValid)
             {    
                 try
                 {
-                    if((int)id==null||(int)userId==null) return RedirectToAction("Index1", "Home");
+                    var checkId = Session["idUser"];
+                    if ((int)id==null||(int)checkId==null) return RedirectToAction("Index1", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
                 }
                 catch(System.InvalidOperationException){
                     return RedirectToAction("Index1", "Home");
                 }
+                var userId = Session["idUser"];
                 rate.IDRestaurant = (int)id;
                 rate.IDUser = (int)userId;
                 rate.IDReview++;
@@ -238,6 +238,11 @@ namespace Dinning_Guide.Controllers
             }
             return View();
         }
+        public ActionResult CreateReview()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Models.Rate.Rate rate, int IDReview)
