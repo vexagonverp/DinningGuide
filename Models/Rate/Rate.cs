@@ -9,7 +9,6 @@ namespace Dinning_Guide.Models.Rate
     public partial class Rate
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDReview { get; set; }
 
         public int IDRestaurant { get; set; }
@@ -20,9 +19,7 @@ namespace Dinning_Guide.Models.Rate
         public double Rate1 { get; set; }
 
         public string Review { get; set; }
-
         public virtual Rate Rates1 { get; set; }
-
         public virtual Rate Rate2 { get; set; }
     }
 }

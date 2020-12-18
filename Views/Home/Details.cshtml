@@ -2,6 +2,7 @@
 @using System.Data.Entity;
 @using System.Linq;
 @model Dinning_Guide.Models.Restaurant.Restaurant
+ 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,6 +25,19 @@
         <p>
             @Html.DisplayFor(model => model.Rate)
         </p>
+
+        @if (Session["FullName"] != null)
+        {
+            <p>
+                @Html.ActionLink("Review", "CreateReview", new { id = @ViewBag.restaurantId, userId = @Session["idUser"] })
+            </p>
+        }
+        else
+        {
+            <p>
+                Login to create a review
+            </p>
+        }
         <!--<dd>
         <table class="table">
             <tr>

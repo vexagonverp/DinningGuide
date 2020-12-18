@@ -20,7 +20,7 @@
             @Html.RadioButton("option", "Rate")<text> Rate </text>
             @Html.TextBox("search")
             <input class="btn action-button" type="submit" name="submit" value="Search">
-            <a href="../Home/CreateReview.cshtml"> CreateReview </a>
+            <a href=@Url.Action("CreateReview","Home")> CreateReview </a>
             <a href="../Home/Delete.cshtml"> Delete </a>
         }
     </div>
@@ -86,6 +86,7 @@
        search = Request.QueryString["search"],
        sort = Request.QueryString["sort"]
     }))
+    </div>
 
 
 

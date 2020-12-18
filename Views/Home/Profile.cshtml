@@ -14,7 +14,7 @@
         <h1>Profile</h1>
         @if (Session["FullName"] != null)
         {
-            <h2>@Session["FullName"].ToString()</h2><p>@Session["Email"].ToString()</p>
+            <h2>@Session["idUser"].ToString()</h2><p>@Session["Email"].ToString()</p>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Index","Home")">Back To Home</a>
         }
         else

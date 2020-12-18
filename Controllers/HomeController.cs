@@ -23,32 +23,32 @@ namespace Dinning_Guide.Controllers
             if (Session["idUser"] != null)
             {
                 if (search != null) return RedirectToAction("Index1", new { option = "Name", search = search, pageNumber = 1, sort = "descending name" });
-                return View("../Home/Index");
+                return View();
 
             }
             else
             {
                 //return RedirectToAction("Login");
                 if (search != null) return RedirectToAction("Index1", new { option = "Name", search = search, pageNumber = 1, sort = "descending name" });
-                return View("../Home/Index");
+                return View();
 
             }
         }
 
         public ActionResult About()
         {
-            return View("../Home/About");
+            return View();
         }
 
         public ActionResult Contact()
         {
-            return View("../Home/Contact");
+            return View();
         }
 
         //GET: Register
         public ActionResult Register()
         {
-            return View("../Home/Register");
+            return View();
         }
 
         //POST: Register
@@ -66,7 +66,7 @@ namespace Dinning_Guide.Controllers
                     _db.Configuration.ValidateOnSaveEnabled = true;
                     _db.Users.Add(_user);
                     _db.SaveChanges();
-                    return RedirectToAction("../Home/Index");
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace Dinning_Guide.Controllers
 
         public ActionResult Login()
         {
-            return View("../Home/Login");
+            return View();
         }
 
 
@@ -98,12 +98,12 @@ namespace Dinning_Guide.Controllers
                     Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
                     Session["Email"] = data.FirstOrDefault().Email;
                     Session["idUser"] = data.FirstOrDefault().idUser;
-                    return RedirectToAction("../Home/Index");
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {
                     ViewBag.error = "Login failed";
-                    return RedirectToAction("../Home/Login");
+                    return RedirectToAction("Login","Home");
                 }
             }
             return View();
@@ -114,7 +114,7 @@ namespace Dinning_Guide.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();//remove session
-            return RedirectToAction("../Home/Login");
+            return RedirectToAction("Login","Home");
         }
 
         public ActionResult Profile()
@@ -198,30 +198,37 @@ namespace Dinning_Guide.Controllers
         ///LOGOUT///---------------------------------------------
         public ActionResult ViewProfile()
         {
-            return RedirectToAction("Index1");
+            return RedirectToAction("Index1","Home");
         }
 
         ///ADD REVIEW ///-----------------------------------------
         private Db_Rates db2 = new Db_Rates();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateReview(Models.Rate.Rate rate)
+        public ActionResult CreateReview()
+        {
+            return View();
+        }
+        public ActionResult CreateReview(int? id,int? userId,Models.Rate.Rate rate)
         {
 
             if (ModelState.IsValid)
             {
+                if (userId == null) RedirectToAction("Login", "Home");
+                rate.IDRestaurant = (int)id;
+                rate.IDUser = (int)userId;
                 rate.IDReview++;
                 _db.Configuration.ValidateOnSaveEnabled = true;
                 db2.Rates.Add(rate);
                 db2.SaveChanges();
-                RedirectToAction("../Home/Index1");
+                RedirectToAction("Index1","Home");
             }
             else
             {
                 ModelState.AddModelError("", "Unable to save changes.Try again.");
                 return View();
             }
-            return View("CreateReview");
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -232,7 +239,7 @@ namespace Dinning_Guide.Controllers
                 rate = db2.Rates.Find(IDReview);
                 db2.Rates.Remove(rate);
                 db2.SaveChanges();
-                return RedirectToAction("../Home/Index1");
+                return RedirectToAction("Index1","Home");
             }
             else
             {
@@ -245,13 +252,14 @@ namespace Dinning_Guide.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("../Home/Index1");
+                return RedirectToAction("Index1","Home");
             }
             Restaurant restaurant = db1.Restaurants.Find(id);
             if (restaurant == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.restaurantId = (int)id;
             return View();
         }
     }
