@@ -10,14 +10,14 @@
 <body>
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-dark navigation-clean-button">
         <div class="container">
-            <a class="navbar-brand" href="../Home/Index">Salt</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <a class="navbar-brand" href=@Url.Action("Index","Home")>Salt</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="../Home/Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Home/Index1">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href=@Url.Action("Index","Home")>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href=@Url.Action("Index1","Home")>Search</a></li>
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">More</a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">Featured restaurants</a><a class="dropdown-item" href="../Home/About">About us</a><a class="dropdown-item" href="../Home/Contact">Contact us</a></div>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="#">Featured restaurants</a><a class="dropdown-item" href=@Url.Action("About","Home")>About us</a><a class="dropdown-item" href=@Url.Action("Contact","Home")>Contact us</a></div>
                     </li>
                
                 </ul>
@@ -31,8 +31,8 @@
                  else
                  {
                      <span class="navbar-text actions">
-                        <a class="login" href="../Home/Login">Log In</a>
-                        <a class="btn btn-light action-button" role="button" href="../Home/Register">Sign Up</a>
+                        <a class="login" href=@Url.Action("Login","Home")>Log In</a>
+                        <a class="btn btn-light action-button" role="button" href=@Url.Action("Register","Home")>Sign Up</a>
                      </span>
                  }
             </div>
@@ -46,8 +46,8 @@
                     <div class="col-sm-6 col-md-3 item">
                         <h3>About</h3>
                         <ul>
-                            <li><a href="../Home/About">Salt</a></li>
-                            <li><a href="../Home/Contact">Team</a></li>
+                            <li><a href=@Url.Action("About","Home")>Salt</a></li>
+                            <li><a href=@Url.Action("Contact","Home")>Team</a></li>
                             <li></li>
                         </ul>
                     </div>

@@ -9,24 +9,21 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
+<div id="Prof_page">
+    <div class="info">
+        <h1>Restaurant detail</h1>
+        <h2>
             @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
+        </h2>
+        <p>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
+        </p>
+        <h2>
             @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-
-        <dd>
+        </h2>
+        <p>
             @Html.DisplayFor(model => model.Rate)
-        </dd>
+        </p>
         <!--<dd>
         <table class="table">
             <tr>
@@ -46,8 +43,7 @@
             }
         </table>
     </dd>-->
-    </dl>
+        <a class="btn btn-light action-button" role="button" href="@Url.Action("Index1","Home")">Back To Search</a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index1")
-</p>
+
