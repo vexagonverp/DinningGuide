@@ -23,9 +23,9 @@
                  @Html.ValidationMessageFor(m => m.Rate1, "", new { @class = "badge badge-danger" })
                 </div>*@
                 <h4>
-                    @Html.DisplayNameFor(m => m.Rate1)
+                    Rating:
                 </h4>
-                <div class="col-md-10">
+                <div class="col-md-10 form-group">
                     @Html.DropDownListFor(model => model.Rate1,
                         new SelectList(new[]
                         { new {value="1",text="1"},
@@ -42,7 +42,6 @@
                 <div class="form-group">
                     <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit" />
                 </div>
-                <input type="button" name="BtnReset" value="Reset" />
             </form>
             }
             </div>
