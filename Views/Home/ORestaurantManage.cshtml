@@ -32,8 +32,9 @@
             @if (Model.Count() == 0)
             {
                 <tr>
-                    <td colspan="12"> Records not found create a restaurant !
-                    @Html.ActionLink("Create here !", "ORestaurantCreate")
+                    <td colspan="12">
+                        Records not found create a restaurant !
+                        @Html.ActionLink("Create here !", "ORestaurantCreate")
                     </td>
                 </tr>
             }
@@ -56,7 +57,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Rate)
                         </td>
-                         <td>
+                        <td>
                             @Html.ActionLink("Delete", "ORestaurantDelete", new { id = item.ID })
                         </td>
                     </tr>
@@ -66,14 +67,15 @@
 
         </table>
     </div>
-    @Html.PagedListPager(Model, pageNumber => Url.Action("Index1", new
+    <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantCreate","Home")">Create restaurant</a>
+    @Html.PagedListPager(Model, pageNumber => Url.Action("ORestaurantManage", new
     {
        pageNumber,
        option = Request.QueryString["option"],
        search = Request.QueryString["search"],
        sort = Request.QueryString["sort"]
     }))
-    </div>
+</div>
 
 
 

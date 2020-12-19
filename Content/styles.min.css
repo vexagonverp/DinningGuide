@@ -143,7 +143,7 @@
             margin-left: -4rem
         }
 
-#Introduction .action-button, #restaurantSearch .action-button,#Prof_page .info .action-button {
+.action-button,#Introduction .action-button, #restaurantSearch .action-button, #Prof_page .info .action-button  {
     background: #f4a1ab;
     border-radius: 20px;
     font-size: 16px;
@@ -158,12 +158,13 @@
     font-size: inherit
 }
 
-    #Introduction .action-button:active, #restaurantSearch .action-button:active,#Prof_page .action-button:active, .navigation-clean-button.navbar-dark .action-button, .navigation-clean-button.navbar-dark .action-button:active {
+    .action-button:active,#Introduction .action-button:active, #restaurantSearch .action-button:active, #Prof_page .action-button:active, .navigation-clean-button.navbar-dark .action-button, .navigation-clean-button.navbar-dark .action-button:active {
         background: #f4a1ab
     }
 
-        #Introduction .action-button:hover,#Prof_page .action-button:hover, #register-login form .btn-primary:active, #register-login form .btn-primary:hover, #restaurantSearch .action-button:hover, .navigation-clean-button .navbar-text .action-button:hover, .navigation-clean-button.navbar-dark .action-button:hover, .register-photo form .btn-primary:active {
-            background: #ffc0c7
+        .action-button:hover, #Introduction .action-button:hover, #Prof_page .action-button:hover, #register-login form .btn-primary:active, #register-login form .btn-primary:hover, #restaurantSearch .action-button:hover, .navigation-clean-button .navbar-text .action-button:hover, .navigation-clean-button.navbar-dark .action-button:hover, .register-photo form .btn-primary:active {
+            background: #ffc0c7; 
+            color: #fff !important;
         }
 
 #bgSearch {
@@ -446,7 +447,7 @@
         box-shadow: 1px 1px 5px rgba(0,0,0,.1)
     }
 
-    #register-login form {
+    #register-login form{
         display: table-cell;
         width: 25rem;
         background-color: #fff;
@@ -460,18 +461,18 @@
         margin-top: 20px
     }
 
-    #register-login form {
+    #register-login form, #delete form {
         padding: 2.5rem
     }
 }
 
-#register-login form h2 {
+#register-login form h2, #delete form h2 {
     font-size: 24px;
     line-height: 1.5;
     margin-bottom: 1.875rem
 }
 
-#register-login form .form-control {
+#register-login form .form-control, #delete form .form-control {
     background: #f7f9fc;
     border: none;
     border-bottom: 1px solid #dfe7f1;
@@ -483,7 +484,7 @@
     height: 2.5rem
 }
 
-#register-login form .form-check {
+#register-login form .form-check, #delete form .form-check {
     font-size: 13px;
     line-height: 20px
 }
@@ -613,10 +614,25 @@
     padding: 5rem 0
 }
     #delete .container {
+        margin-top: 2.5rem !important;
         width: 25rem;
         background-color: #fff;
         padding: 2.5rem 3.75rem;
         margin: auto;
         color: #505e6c
     }
-  
+    #delete form {
+        margin-top: 5rem;
+        display: table-cell;
+        width: 50rem;
+        background-color: #fff;
+        padding: 2.5rem 3.75rem;
+        color: #505e6c
+    }
+    #delete .form-container {
+        margin-top: 2.5rem;
+        display: table;
+        max-width: 80.00rem;
+        width: 90%;
+        margin: 0 auto;
+        box-shadow: 1px 1px 5px rgba(0,0,0,.1)
