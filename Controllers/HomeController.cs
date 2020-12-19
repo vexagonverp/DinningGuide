@@ -155,6 +155,7 @@ namespace Dinning_Guide.Controllers
 
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
+            var rates = db2.Rates.AsQueryable();
 
             //if a user choose the radio button option as Description  
 
@@ -175,6 +176,22 @@ namespace Dinning_Guide.Controllers
             {
                 records = records.Where(x => x.Name.Contains(search) || search == null);
             }
+            foreach(var item in records)
+            {
+                try
+                {
+                    var rating = rates.Where(x => x.IDRestaurant == item.ID).Select(x => x.Rate1).Average();
+                    rating = System.Math.Round(rating, 2);
+                    item.Rate = rating;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    item.Rate = 0;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+            }
+            db1.SaveChanges();
 
             switch (sort)
             {
@@ -354,8 +371,25 @@ namespace Dinning_Guide.Controllers
             }
             var userId = Session["idUser"];
             var records = db1.Restaurants.AsQueryable();
+            var rates = db2.Rates.AsQueryable();
             records = records.OrderBy(x => x.IDUser == (int)userId);
             records = records.Where(x => x.IDUser == (int)userId);
+            foreach (var item in records)
+            {
+                try
+                {
+                    var rating = rates.Where(x => x.IDRestaurant == item.ID).Select(x => x.Rate1).Average();
+                    rating = System.Math.Round(rating, 2);
+                    item.Rate = rating;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    item.Rate = 0;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+            }
+            db1.SaveChanges();
             return View(records.ToPagedList(pageNumber ?? 1, 100));
         }
 
@@ -489,6 +523,7 @@ namespace Dinning_Guide.Controllers
 
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
+            var rates = db2.Rates.AsQueryable();
 
             //if a user choose the radio button option as Description  
 
@@ -509,6 +544,22 @@ namespace Dinning_Guide.Controllers
             {
                 records = records.Where(x => x.Name.Contains(search) || search == null);
             }
+            foreach (var item in records)
+            {
+                try
+                {
+                    var rating = rates.Where(x => x.IDRestaurant == item.ID).Select(x => x.Rate1).Average();
+                    rating = System.Math.Round(rating, 2);
+                    item.Rate = rating;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    item.Rate = 0;
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                }
+            }
+            db1.SaveChanges();
 
             switch (sort)
             {
