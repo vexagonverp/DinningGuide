@@ -411,6 +411,10 @@ namespace Dinning_Guide.Controllers
                 {
                     restaurant = restaurant.Where(s => s.IDUser == (int)userId);
                 }
+                if((int)id != null)
+                {
+                    restaurant = restaurant.Where(s => s.ID == (int)id);
+                }
                 foreach (var item in restaurant)
                 {
                     //db2.Rates.Find(rate);

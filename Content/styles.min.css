@@ -440,6 +440,7 @@
     }
 
     #register-login .form-container {
+        margin-top: 2.5rem !important;
         display: table;
         max-width: 56.25rem;
         width: 90%;
@@ -448,6 +449,7 @@
     }
 
     #register-login form{
+        margin-top: 2.5rem !important;
         display: table-cell;
         width: 25rem;
         background-color: #fff;
@@ -622,7 +624,7 @@
         color: #505e6c
     }
     #delete form {
-        margin-top: 5rem;
+        margin-top: 2.5rem !important;
         display: table-cell;
         width: 50rem;
         background-color: #fff;
@@ -630,7 +632,7 @@
         color: #505e6c
     }
     #delete .form-container {
-        margin-top: 2.5rem;
+        margin-top: 2.5rem !important;
         display: table;
         max-width: 80.00rem;
         width: 90%;
