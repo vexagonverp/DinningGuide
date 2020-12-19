@@ -12,6 +12,7 @@ using PagedList;
 using System.Web.Security;
 using System.Data;
 
+
 namespace Dinning_Guide.Controllers
 {
     public class HomeController : Controller
@@ -203,9 +204,6 @@ namespace Dinning_Guide.Controllers
 
         ///ADD REVIEW ///-----------------------------------------
         private Db_Rates db2 = new Db_Rates();
-
-
-        
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -229,7 +227,7 @@ namespace Dinning_Guide.Controllers
                 db2.Configuration.ValidateOnSaveEnabled = true;
                 db2.Rates.Add(rate);
                 db2.SaveChanges();
-                RedirectToAction("Index1", "Home");
+                return RedirectToAction("Index1", "Home");
             }
             else
             {
@@ -245,12 +243,35 @@ namespace Dinning_Guide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Models.Rate.Rate rate, int IDReview)
+        public ActionResult Delete(int? id)
         {
             if (ModelState.IsValid)
             {
-                rate = db2.Rates.Find(IDReview);
-                db2.Rates.Remove(rate);
+                try
+                {
+                    var checkId = Session["idUser"];
+                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index1", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index1", "Home");
+                }
+                var userId = Session["idUser"];
+                var rates = db2.Rates.AsQueryable();
+                if((int)id != null)
+{
+                    rates = rates.Where(s => s.IDRestaurant == (int)id);
+                }
+                if ((int)userId != null)
+                {
+                    rates = rates.Where(s => s.IDUser == (int)userId);
+                }
+                foreach (var item in rates)
+                {
+                    //db2.Rates.Find(rate);
+                    db2.Configuration.ValidateOnSaveEnabled = true;
+                    db2.Rates.Remove(item);
+                }
                 db2.SaveChanges();
                 return RedirectToAction("Index1","Home");
             }
@@ -258,7 +279,11 @@ namespace Dinning_Guide.Controllers
             {
                 return View();
             }
-            
+            return View();
+        }
+        public ActionResult Delete()
+        {
+            return View();
         }
 
         public ActionResult Details(int? id)
