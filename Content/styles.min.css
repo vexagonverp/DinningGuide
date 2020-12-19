@@ -113,7 +113,7 @@
     background: url(https://image.freepik.com/free-vector/spices-kitchen-pattern_8365-160.jpg)
 }
 
-    #Prof_page .info {
+    #Prof_page .info,#bgSearch .info {
         margin-top: 2rem;
         padding: 2.5rem;
         outline: 0;
@@ -190,6 +190,10 @@
     margin-top: 2.5rem;
     background: url(https://image.freepik.com/free-vector/spices-kitchen-pattern_8365-160.jpg);
     padding: 5rem 0
+}
+
+#bgSearch .table-responsive {
+    margin: 3rem 0;
 }
 
 #restaurantSearch .form-container {

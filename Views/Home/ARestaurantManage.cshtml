@@ -77,6 +77,7 @@
 
         </table>
     </div>
+    <div class="info">
     @Html.PagedListPager(Model, pageNumber => Url.Action("ARestaurantManage", new
     {
        pageNumber,
@@ -84,6 +85,7 @@
        search = Request.QueryString["search"],
        sort = Request.QueryString["sort"]
     }))
+    </div>
     </div>
 
 

@@ -335,21 +335,18 @@ namespace Dinning_Guide.Controllers
             return View(restaurant);
         }
 
-        public ActionResult ReviewDetail(int? id)
+        public ActionResult ReviewDetail(int? id,int? pageNumber)
         {
             Db_Rates db2 = new Db_Rates();
             if (id == null)
             {
                 return RedirectToAction("Index1", "Home");
             }
-            Rate rate = db2.Rates.Find(id);
-            if (rate == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.rateId = (int)id;
-
-            return View(rate);
+            var rates = db2.Rates.AsQueryable();
+            ViewBag.restaurantId = (int)id;
+            rates = rates.OrderBy(x => x.IDRestaurant == (int)id);
+            rates = rates.Where(x => x.IDRestaurant == (int)id);
+            return View(rates.ToPagedList(pageNumber ?? 1, 100));
         }
 
         public ActionResult ORestaurantManage(int? pageNumber)

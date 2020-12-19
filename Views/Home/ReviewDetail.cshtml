@@ -1,44 +1,87 @@
 ﻿@using System.Data.Entity;
 @using System.Linq;
-@model Dinning_Guide.Models.Rate.Rate
-@{
-    ViewBag.Title = "ReviewDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@using PagedList;
+@using PagedList.Mvc;
 
-<h2>ReviewDetail</h2>
+@model IPagedList<Dinning_Guide.Models.Rate.Rate>
+    @{
+        ViewBag.Title = "ReviewDetail";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-<div id="RevDe">
-    <div class="info">
-        <h1>Review detail</h1>
-        <table>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.Rate1)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Rate1).ToHtmlString()
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.Review)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Review).ToHtmlString()
-                </td>
-            </tr>
-        </table>
+    <div id="bgSearch">
+        <div class="table-responsive">
+            <table id="tableSearch" class="table table-dark" border="0">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().IDReview)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().IDUser)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Review)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Rate1)
+                    </th>
+                </tr>
+
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="12">
+                            Records not found be the first one to create a review !
+                            @Html.ActionLink("Create here !", "Details",new { id = ViewBag.restaurantId})
+                        </td>
+                    </tr>
+                }
+                else
+                {
+
+                    foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDReview)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDUser)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Review)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rate1)
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+        </div>
+        <div class="info">
         @if (Session["FullName"] != null)
-        {
+        {            
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
         }
         else
         {
             <p>
-                Login to create and see a review
+                Login to create a review
             </p>
-        }
-        <a class="btn btn-light action-button" role="button" href="@Url.Action("Index1","Home")">Back To Search</a>
+            }
+        @Html.PagedListPager(Model, pageNumber => Url.Action("ReviewDetail", new
+        {
+           pageNumber,
+           option = Request.QueryString["option"],
+           search = Request.QueryString["search"],
+           sort = Request.QueryString["sort"]
+        }))
+        </div>
     </div>
-</div>
 
 

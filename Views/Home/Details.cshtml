@@ -13,55 +13,28 @@
 <div id="Prof_page">
     <div class="info">
         <h1>Restaurant detail</h1>
-        @*<table>
-            <tr>
-                <td>
-                    <h1>
-                    @Html.DisplayNameFor(model => model.Name)
-                    </h1>
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Name).ToHtmlString()
-                </td>
-                <td>
-                    <h1>
-                    @Html.DisplayNameFor(model => model.Rate)
-                    </h1>
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Rate).ToHtmlString()
-                </td>
-                <td>
-                    <h1>
-                    @Html.DisplayNameFor(model => model.Decription)
-                    </h1>
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Decription).ToHtmlString()
-                </td>
-                <td>
-                    <a class="btn btn-light action-button" role="button" href="@Html.ActionLink("ReviewDetail","ReviewDetail")> </a>
-                </td>
-            </tr>
-        </table>*@
 
-    <h2>@Html.DisplayFor(model => model.Name).ToHtmlString()</h2> 
-    <h3> Restaurant / @Html.DisplayFor(model => model.Rate).ToHtmlString() <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Golden_star.svg/1200px-Golden_star.svg.png" alt="Star" width="20" height="20"> </h3>
-    <p><i>@Html.DisplayFor(model => model.Decription).ToHtmlString()</i> </p>
+
+        <h2>Name : @Html.DisplayFor(model => model.Name).ToHtmlString()</h2>
+        <h3> Rating : @Html.DisplayFor(model => model.Rate).ToHtmlString() <i class="fa fa-star" aria-hidden="true"></i></h3>
+        <h3> Description : </h3>
+        <p>@Html.DisplayFor(model => model.Decription).ToHtmlString()</p>
 
 
         @if (Session["FullName"] != null)
         {
-            <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Review</a>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
         }
         else
         {
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
             <p>
                 Login to create a review
             </p>
-        }
-        <a class="btn btn-light action-button" role="button" href="@Url.Action("Index1","Home")">Back To Search</a>
-    </div>
+            }
+            @Html.ActionLink("Back to List", "Index1")
+        </div>
 </div>
 

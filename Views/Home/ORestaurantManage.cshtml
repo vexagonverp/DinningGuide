@@ -67,6 +67,7 @@
 
         </table>
     </div>
+    <div class="info">
     <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantCreate","Home")">Create restaurant</a>
     @Html.PagedListPager(Model, pageNumber => Url.Action("ORestaurantManage", new
     {
@@ -75,6 +76,7 @@
        search = Request.QueryString["search"],
        sort = Request.QueryString["sort"]
     }))
+    </div>
 </div>
 
 
