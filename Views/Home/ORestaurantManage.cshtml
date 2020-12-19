@@ -24,13 +24,17 @@
                 <th>
                     @Html.DisplayNameFor(model => model.First().Rate)
                 </th>
+                <th>
+                    Action
+                </th>
             </tr>
 
             @if (Model.Count() == 0)
             {
                 <tr>
-                    <td colspan="12"> Records not found create a restaurant !</td>
-                    <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantCreate","Home")">Manage restaurant</a>
+                    <td colspan="12"> Records not found create a restaurant !
+                    @Html.ActionLink("Create here !", "ORestaurantCreate")
+                    </td>
                 </tr>
             }
             else
@@ -52,8 +56,10 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Rate)
                         </td>
+                         <td>
+                            @Html.ActionLink("Delete", "ORestaurantDelete", new { id = item.ID })
+                        </td>
                     </tr>
-                    <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantDelete","Home")">Delete current restaurant</a>
                 }
 
             }
