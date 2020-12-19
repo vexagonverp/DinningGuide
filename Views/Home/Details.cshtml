@@ -37,9 +37,6 @@
         </table>
         @if (Session["FullName"] != null)
         {
-            <p>
-                @Html.ActionLink("Review", "CreateReview", new { id = @ViewBag.restaurantId })
-            </p>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Review</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
         }
