@@ -11,7 +11,7 @@ using Dinning_Guide.Models.Rate;
 using PagedList;
 using System.Web.Security;
 using System.Data;
-
+using System.Data.Entity.Infrastructure;
 
 namespace Dinning_Guide.Controllers
 {
@@ -431,6 +431,78 @@ namespace Dinning_Guide.Controllers
         public ActionResult ORestaurantCreate()
         {
             return View();
+        }
+
+        public ActionResult RestaurantEdit(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Restaurant restaurant = db1.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(restaurant);
+        }
+
+        [HttpPost,ActionName("RestaurantEdit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RestaurantEditPost(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            var restaurantToUpdate = db1.Restaurants.Find(id);
+            if (TryUpdateModel(restaurantToUpdate, "",
+               new string[] { "Name", "Address", "Decription" }))
+            {
+                try
+                {
+                    db1.SaveChanges();
+
+                    return RedirectToAction("Index","Home");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(restaurantToUpdate);
+
         }
 
         [HttpPost]

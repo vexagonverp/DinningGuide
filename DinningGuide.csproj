@@ -443,6 +443,7 @@
     <Content Include="Views\Home\ORestaurantCreate.cshtml" />
     <Content Include="Views\Home\ORestaurantDelete.cshtml" />
     <Content Include="Views\Home\ReviewDetail.cshtml" />
+    <Content Include="Views\Home\RestaurantEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
