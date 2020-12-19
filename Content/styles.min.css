@@ -1,3 +1,22 @@
+#tableSearch a:link {
+    color: #00c4ff !important;
+}
+
+#tableSearch a:visited {
+    color: #00c4ff !important;
+    text-decoration: none;
+}
+
+#tableSearch a:hover {
+    color: #00c4ff !important;
+    text-decoration: underline;
+}
+
+#tableSearch a:active {
+    color: #00c4ff !important;
+    text-decoration: underline;
+}
+
 .article-list, .team-clean {
     color: #313437;
     background-color: #fff

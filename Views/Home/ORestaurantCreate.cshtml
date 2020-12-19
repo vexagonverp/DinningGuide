@@ -14,7 +14,7 @@
 <body>
     <div id="delete">
         <div class="form-container">
-            @using (Html.BeginForm("ORestaurantCreate","Home",FormMethod.Post))
+            @using (Html.BeginForm("ORestaurantCreate", "Home", FormMethod.Post))
             {
                 <form method="post">
                     @Html.AntiForgeryToken()
@@ -33,8 +33,10 @@
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn btn-light action-button" value="Submit" />
                     </div>
+                    @Html.ActionLink("Back to List", "ORestaurantManage")
                 </form>
             }
+            
         </div>
     </div>
 </body>

@@ -18,6 +18,8 @@ namespace Dinning_Guide.Controllers
     public class HomeController : Controller
     {
         private DB_Entities _db = new DB_Entities();
+        private Db_Rates db2 = new Db_Rates();
+        private Db_Restaurants db1 = new Db_Restaurants();
         // GET: Home
         public ActionResult Index(string search)
         {
@@ -143,7 +145,7 @@ namespace Dinning_Guide.Controllers
         }
 
         /// ---------------------------------------------------------
-        Db_Restaurants db1 = new Db_Restaurants();
+        
         public ActionResult Index1(string option, string search, double? rate, int? pageNumber, string sort)
         {
             //if the sort parameter is null or empty then we are initializing the value as descending name  
@@ -205,7 +207,7 @@ namespace Dinning_Guide.Controllers
         }
 
         ///ADD REVIEW ///-----------------------------------------
-        private Db_Rates db2 = new Db_Rates();
+       
         
         [HttpPost]
         [ValidateAntiForgeryToken]
