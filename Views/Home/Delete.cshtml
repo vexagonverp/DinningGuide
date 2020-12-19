@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="delete">
     <div class="container">
@@ -15,7 +16,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-actions no-color">
-                    <input type="submit" value="Delete" class="btn action-button" /> |
+                    <input type="submit" value="Delete" class="btn action-button" />
                     @Html.ActionLink("Back to List", "Index1")
                 </div>
             }
