@@ -8,7 +8,6 @@ namespace Dinning_Guide.Models.Restaurant
 
     public partial class Restaurant
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required]
@@ -21,5 +20,6 @@ namespace Dinning_Guide.Models.Restaurant
         public string Decription { get; set; }
 
         public double? Rate { get; set; }
+        public int IDUser { get; set; }
     }
 }

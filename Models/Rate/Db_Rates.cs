@@ -1,11 +1,11 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+
 namespace Dinning_Guide.Models.Rate
 {
-    using System;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Linq;
-
     public partial class Db_Rates : DbContext
     {
         public Db_Rates()

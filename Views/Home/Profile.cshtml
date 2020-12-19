@@ -14,12 +14,15 @@
         <h1>Profile</h1>
         @if (Session["FullName"] != null)
         {
-            <h2>@Session["idUser"].ToString()</h2><p>@Session["Email"].ToString()</p>
+            <h2>@Session["idUser"].ToString()</h2>
+            <p>@Session["Email"].ToString()</p>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Index","Home")">Back To Home</a>
         }
         else
         {
-            <p><i>(Login to see the full information)</i></p>
+            <p>
+                <i>(Login to see the full information)</i>
+            </p>
         }
 
     </div>
