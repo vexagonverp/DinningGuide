@@ -607,3 +607,16 @@
     .team-clean .item img {
         max-width: 160px
     }
+#delete {
+    margin-top: 2.5rem;
+    background: url(https://image.freepik.com/free-vector/spices-kitchen-pattern_8365-160.jpg);
+    padding: 5rem 0
+}
+    #delete .container {
+        width: 25rem;
+        background-color: #fff;
+        padding: 2.5rem 3.75rem;
+        margin: auto;
+        color: #505e6c
+    }
+  
