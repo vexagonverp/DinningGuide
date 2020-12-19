@@ -13,19 +13,28 @@
 <div id="Prof_page">
     <div class="info">
         <h1>Restaurant detail</h1>
-        <h2>
-            @Html.DisplayNameFor(model => model.Name)
-        </h2>
-        <h2>
-            @Html.DisplayFor(model => model.Name).ToHtmlString()
-        </h2>
-        <h2>
-            @Html.DisplayNameFor(model => model.Rate)
-        </h2>
-        <h2>
-            @Html.DisplayFor(model => model.Rate).ToHtmlString()
-        </h2>
-
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Name).ToHtmlString()
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Rate).ToHtmlString()
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Decription)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Decription).ToHtmlString()
+                </td>
+            </tr>
+        </table>
         @if (Session["FullName"] != null)
         {
             <p>
@@ -40,25 +49,6 @@
                 Login to create a review
             </p>
         }
-        <!--<dd>
-        <table class="table">
-            <tr>
-                <th>Course Title</th>
-                <th>Grade</th>
-            </tr>
-            foreach (var item in Model.Enrollments)
-            {
-                <tr>
-                    <td>
-                        Html.DisplayFor(modelItem => item.Course.Title)
-                    </td>
-                    <td>
-                        Html.DisplayFor(modelItem => item.Grade)
-                    </td>
-                </tr>
-            }
-        </table>
-    </dd>-->
         <a class="btn btn-light action-button" role="button" href="@Url.Action("Index1","Home")">Back To Search</a>
     </div>
 </div>

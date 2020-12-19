@@ -9,7 +9,6 @@ namespace Dinning_Guide.Models.User
     public partial class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
 
         [StringLength(50)]
@@ -24,6 +23,6 @@ namespace Dinning_Guide.Models.User
         [StringLength(50)]
         public string Password { get; set; }
 
-        public int Type { get; set; }
+        public int? Type { get; set; }
     }
 }

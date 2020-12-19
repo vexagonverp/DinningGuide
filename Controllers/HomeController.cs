@@ -216,7 +216,8 @@ namespace Dinning_Guide.Controllers
                 try
                 {
                     var checkId = Session["idUser"];
-                    if ((int)id==null||(int)checkId==null) return RedirectToAction("Index1", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
+                    if ((int)id==null||(int)checkId==null) return RedirectToAction("Index1", "Home");
+                    //Should catch the exception if object is null or it will always be true 
                 }
                 catch(System.InvalidOperationException){
                     return RedirectToAction("Index1", "Home");
@@ -251,7 +252,8 @@ namespace Dinning_Guide.Controllers
                 try
                 {
                     var checkId = Session["idUser"];
-                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index1", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
+                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index1", "Home");
+                    //Should catch the exception if object is null or it will always be true 
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -287,8 +289,10 @@ namespace Dinning_Guide.Controllers
             return View();
         }
 
+        ///View Detail-------------------
         public ActionResult Details(int? id)
         {
+            Db_Restaurants db1 = new Db_Restaurants();
             if (id == null)
             {
                 return RedirectToAction("Index1","Home");
@@ -299,6 +303,7 @@ namespace Dinning_Guide.Controllers
                 return HttpNotFound();
             }
             ViewBag.restaurantId = (int)id;
+            
             return View(restaurant);
         }
 

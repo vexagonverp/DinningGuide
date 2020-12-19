@@ -9,7 +9,7 @@ namespace Dinning_Guide.Models.User
     public partial class DB_Entities : DbContext
     {
         public DB_Entities()
-            : base("name=Users")
+            : base("name=DB_Entities")
         {
         }
 
