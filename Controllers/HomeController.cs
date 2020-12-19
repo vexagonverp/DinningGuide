@@ -316,6 +316,23 @@ namespace Dinning_Guide.Controllers
             return View(restaurant);
         }
 
+        public ActionResult ReviewDetail(int? id)
+        {
+            Db_Rates db2 = new Db_Rates();
+            if (id == null)
+            {
+                return RedirectToAction("Index1", "Home");
+            }
+            Rate rate = db2.Rates.Find(id);
+            if (rate == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.rateId = (int)id;
+
+            return View(rate);
+        }
+
         public ActionResult ORestaurantManage(int? pageNumber)
         {
             try

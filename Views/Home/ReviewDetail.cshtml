@@ -1,0 +1,44 @@
+﻿@using System.Data.Entity;
+@using System.Linq;
+@model Dinning_Guide.Models.Rate.Rate
+@{
+    ViewBag.Title = "ReviewDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ReviewDetail</h2>
+
+<div id="RevDe">
+    <div class="info">
+        <h1>Review detail</h1>
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Rate1)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Rate1).ToHtmlString()
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Review)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Review).ToHtmlString()
+                </td>
+            </tr>
+        </table>
+        @if (Session["FullName"] != null)
+        {
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
+        }
+        else
+        {
+            <p>
+                Login to create and see a review
+            </p>
+        }
+        <a class="btn btn-light action-button" role="button" href="@Url.Action("Index1","Home")">Back To Search</a>
+    </div>
+</div>
+
+

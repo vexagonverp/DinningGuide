@@ -33,6 +33,9 @@
                 <td>
                     @Html.DisplayFor(model => model.Decription).ToHtmlString()
                 </td>
+                <td>
+                    <a class="btn btn-light action-button" role="button" href="@Html.ActionLink("ReviewDetail","ReviewDetail")> </a>
+                </td>
             </tr>
         </table>
         @if (Session["FullName"] != null)
