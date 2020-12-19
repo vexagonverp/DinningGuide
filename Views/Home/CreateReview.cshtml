@@ -16,21 +16,34 @@
         <div class="form-container">
             @using (Html.BeginForm("CreateReview","Home",FormMethod.Post))
             {
-                <form method="post">
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Rate1, "", new { @class = "form-control", @placeholder = "Rating" })
-                        @Html.ValidationMessageFor(m => m.Rate1, "", new { @class = "badge badge-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Review, "", new { @class = "form-control", @placeholder = "Review" })
-                        @Html.ValidationMessageFor(m => m.Review, "", new { @class = "badge badge-danger" })
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit" />
-                    </div>
-                    <input type="button" name="BtnReset" value="Reset" />
-                </form>
+            <form method="post">
+                @Html.AntiForgeryToken()
+                @*<div class="form-group">
+                @Html.TextBoxFor(m => m.Rate1, "", new { @class = "form-control", @placeholder = "Rating" })
+                 @Html.ValidationMessageFor(m => m.Rate1, "", new { @class = "badge badge-danger" })
+                </div>*@
+                <h4>
+                    @Html.DisplayNameFor(m => m.Rate1)
+                </h4>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Rate1,
+                        new SelectList(new[]
+                        { new {value="1",text="1"},
+                          new {value="2",text="2"},
+                          new {value="3",text="3"},
+                          new {value="4",text="4"},
+                          new {value="5",text="5"}
+                    }, "value", "text"), new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Review, "", new { @class = "form-control", @placeholder = "Review" })
+                    @Html.ValidationMessageFor(m => m.Review, "", new { @class = "badge badge-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit" />
+                </div>
+                <input type="button" name="BtnReset" value="Reset" />
+            </form>
             }
         </div>
     </div>
