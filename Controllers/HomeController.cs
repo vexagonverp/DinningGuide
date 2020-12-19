@@ -99,6 +99,7 @@ namespace Dinning_Guide.Controllers
                     Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
                     Session["Email"] = data.FirstOrDefault().Email;
                     Session["idUser"] = data.FirstOrDefault().idUser;
+                    Session["Type"] = data.FirstOrDefault().Type;
                     return RedirectToAction("Index","Home");
                 }
                 else
@@ -193,7 +194,7 @@ namespace Dinning_Guide.Controllers
 
             }
 
-            return View(records.ToPagedList(pageNumber ?? 1, 3));
+            return View(records.ToPagedList(pageNumber ?? 1, 100));
         }
 
         ///LOGOUT///---------------------------------------------
@@ -300,5 +301,119 @@ namespace Dinning_Guide.Controllers
             ViewBag.restaurantId = (int)id;
             return View(restaurant);
         }
+
+        public ActionResult ORestaurantManage(int? id, int? pageNumber)
+        {
+            return (null);
+        }
+
+        public ActionResult ARestaurantManage(string option, string search, double? rate, int? pageNumber, string sort)
+        {
+            //if the sort parameter is null or empty then we are initializing the value as descending name  
+            ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
+            //if the sort value is gender then we are initializing the value as descending gender  
+            ViewBag.SortByDescription = sort == "Description" ? "descending description" : "Description";
+
+            //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
+            var records = db1.Restaurants.AsQueryable();
+
+            //if a user choose the radio button option as Description  
+
+            if (option == "Address")
+            {
+                records = records.Where(x => x.Address == search || search == null);
+            }
+            else if (option == "Description")
+            {
+                records = records.Where(x => x.Decription == search || search == null);
+            }
+            else if (option == "Rate")
+            {
+                records = records.Where(x => x.Rate == rate || search == null);
+            }
+
+            else
+            {
+                records = records.Where(x => x.Name.StartsWith(search) || search == null);
+            }
+
+            switch (sort)
+            {
+
+                case "descending name":
+                    records = records.OrderByDescending(x => x.Name);
+                    break;
+
+                case "descending rate":
+                    records = records.OrderByDescending(x => x.Rate);
+                    break;
+
+                case "Address":
+                    records = records.OrderBy(x => x.Address);
+                    break;
+
+                default:
+                    records = records.OrderBy(x => x.Name);
+                    break;
+
+            }
+
+            return View(records.ToPagedList(pageNumber ?? 1, 100));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ARestaurantDelete(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var userId = Session["idUser"];
+                var restaurant = db1.Restaurants.AsQueryable();
+                if ((int)id != null)
+                {
+                    restaurant = restaurant.Where(s => s.ID == (int)id);
+                }
+                foreach (var item in restaurant)
+                {
+                    //db2.Rates.Find(rate);
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                    db1.Restaurants.Remove(item);
+                }
+                var rates = db2.Rates.AsQueryable();
+                if ((int)id != null)
+                {
+                    rates = rates.Where(s => s.IDRestaurant == (int)id);
+                }
+                foreach (var item in rates)
+                {
+                    //db2.Rates.Find(rate);
+                    db2.Configuration.ValidateOnSaveEnabled = true;
+                    db2.Rates.Remove(item);
+                }
+                db2.SaveChanges();
+                db1.SaveChanges();
+                return RedirectToAction("ARestaurantManage", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            return View();
+        }
+        public ActionResult ARestaurantDelete()
+        {
+            return View();
+        }
+
+
     }
 }
