@@ -158,15 +158,15 @@ namespace Dinning_Guide.Controllers
 
             if (option == "Address")
             {
-                records = records.Where(x => x.Address == search || search == null);
+                records = records.Where(x => x.Address.StartsWith(search) || search == null);
             }
             else if (option == "Description")
             {
-                records = records.Where(x => x.Decription == search|| search == null);
+                records = records.Where(x => x.Decription.StartsWith(search)|| search == null);
             }
             else if (option == "Rate")
             {
-                records = records.Where(x => x.Rate == rate || search == null);
+                records = records.Where(x => x.Rate.StartsWith(search) || search == null);
             }
 
             else
@@ -352,8 +352,8 @@ namespace Dinning_Guide.Controllers
             }
             var userId = Session["idUser"];
             var records = db1.Restaurants.AsQueryable();
-            records.Where(x => x.IDUser == (int)userId || (int)userId == null);
-            records = records.OrderBy(x => x.Name);
+            records.Where(x => x.IDUser == (int)userId);
+            records = records.OrderBy(x => x.IDUser == (int)userId);
             return View(records.ToPagedList(pageNumber ?? 1, 100));
         }
 
