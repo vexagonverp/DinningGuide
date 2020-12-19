@@ -444,6 +444,8 @@
     <Content Include="Views\Home\ORestaurantDelete.cshtml" />
     <Content Include="Views\Home\ReviewDetail.cshtml" />
     <Content Include="Views\Home\RestaurantEdit.cshtml" />
+    <Content Include="Views\Home\AUserManage.cshtml" />
+    <Content Include="Views\Home\AUserDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

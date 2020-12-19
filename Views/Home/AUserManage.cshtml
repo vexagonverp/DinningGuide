@@ -1,0 +1,101 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@model IPagedList<Dinning_Guide.Models.User.User>
+@{
+    ViewBag.Title = "User Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="bgSearch">
+    <div id="restaurantSearch" class="form-container">
+        @using (Html.BeginForm("AUserManage", "Home", FormMethod.Get))
+        {
+            //the following are search options
+            <h2><strong> Search </strong> option:</h2>
+            @Html.RadioButton("option", "Email") <text> Email </text>
+            @Html.RadioButton("option", "FirstName") <text> First name </text>
+            @Html.RadioButton("option", "LastName") <text> Last name </text>
+            @Html.RadioButton("option", "idUser")<text> User id </text>
+            @Html.RadioButton("option", "Type")<text> User type(0 = User;1 = Owner;2 = Admin)</text>
+            @Html.TextBox("search")
+            <input class="btn action-button" type="submit" name="submit" value="Search">
+        }
+    </div>
+    <div class="table-responsive">
+        <table id="tableSearch" class="table table-dark" border="0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().idUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Type)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="12"> Records not found </td>
+                </tr>
+            }
+            else
+            {
+
+                foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idUser)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Delete", "AUserDelete", new { id = item.idUser }) | @Html.ActionLink("Edit", "AUserEdit", new { id = item.idUser })
+                        </td>
+
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+    <div class="info">
+    @Html.PagedListPager(Model, pageNumber => Url.Action("ARestaurantManage", new
+    {
+       pageNumber,
+       option = Request.QueryString["option"],
+       search = Request.QueryString["search"],
+       sort = Request.QueryString["sort"]
+    }))
+    </div>
+    </div>
+
+
+

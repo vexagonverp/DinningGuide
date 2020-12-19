@@ -1,7 +1,7 @@
-﻿@model Dinning_Guide.Models.Restaurant.Restaurant
+﻿@model Dinning_Guide.Models.User.User
 
 @{
-    ViewBag.Title = "Restaurant Delete";
+    ViewBag.Title = "User Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 
         <h3>Are you sure you want to delete this?</h3>
         <div>
-            <h4>All rating and review on this restaurant and the restaurant will be deleted</h4>
+            <h4>All rating and review of every restaurant and the restaurant made by this user will be deleted</h4>
 
             @using (Html.BeginForm())
             {
@@ -21,7 +21,7 @@
                     <input type="submit" value="Delete" class="btn action-button" />
                 </div>
             }
-            @Html.ActionLink("Back to List", "ARestaurantManage")
+            @Html.ActionLink("Back to List", "AUserManage")
         </div>
     </div>
 </div>

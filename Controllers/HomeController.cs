@@ -462,7 +462,7 @@ namespace Dinning_Guide.Controllers
             return View(restaurant);
         }
 
-        [HttpPost,ActionName("RestaurantEdit")]
+        [HttpPost,ActionName("RestaurantEdit")] //Ha ha good luck finding this shit on stackoverflow jesus fucking christ my brain cells
         [ValidateAntiForgeryToken]
         public ActionResult RestaurantEditPost(int? id)
         {
@@ -663,7 +663,8 @@ namespace Dinning_Guide.Controllers
                 try
                 {
                     var checkId = Session["idUser"];
-                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index", "Home");
+                    var typeId = Session["Type"];
+                    if ((int)id == null || (int)checkId == null || (int)typeId != 2) return RedirectToAction("Index", "Home");
                     //Should catch the exception if object is null or it will always be true
                 }
                 catch (System.NullReferenceException)
@@ -711,6 +712,151 @@ namespace Dinning_Guide.Controllers
         {
             return View();
         }
+
+        public ActionResult AUserManage(string option, string search, int? pageNumber, string sort)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId != 2) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //if the sort parameter is null or empty then we are initializing the value as descending name  
+            ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
+            //if the sort value is gender then we are initializing the value as descending gender  
+            ViewBag.SortByDescription = sort == "Description" ? "descending description" : "Description";
+
+            //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
+            var records = _db.Users.AsQueryable();
+
+            //if a user choose the radio button option as Description  
+            
+            int number = Convert.ToInt32("0"+search);//incase some funny man decide to search for null
+            if (option == "idUser")
+            {
+                records = records.Where(x => x.idUser== number || search == null);
+            }
+            else if (option == "FirstName")
+            {
+                records = records.Where(x => x.FirstName.Contains(search) || search == null);
+            }
+            else if (option == "LastName")
+            {
+                records = records.Where(x => x.LastName.Contains(search) || search == null);
+            }
+            else if (option == "Type")
+            {
+                records = records.Where(x => x.Type == number || search == null);
+            }
+            else
+            {
+                records = records.Where(x => x.Email.Contains(search) || search == null);
+            }
+
+            switch (sort)
+            {
+
+                case "descending name":
+                    records = records.OrderByDescending(x => x.idUser);//Dumb dumb LinQ doesn't support int.parse stoopid so no sorting with int :)...FOR NOW !
+                    break;
+
+                case "descending rate":
+                    records = records.OrderByDescending(x => x.FirstName);
+                    break;
+
+                case "Address":
+                    records = records.OrderBy(x => x.LastName);
+                    break;
+
+                default:
+                    records = records.OrderBy(x => x.Email);
+                    break;
+
+            }
+
+            return View(records.ToPagedList(pageNumber ?? 1, 100));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AUserDelete(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    var typeId = Session["Type"];
+                    if ((int)id == null || (int)checkId == null || (int)typeId != 2) return RedirectToAction("Index", "Home");
+                    //Should catch the exception if object is null or it will always be true
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var userId = (int)id;
+                var restaurant = db1.Restaurants.AsQueryable();
+                if ((int)id != null)
+                {
+                    restaurant = restaurant.Where(s => s.IDUser == (int)id);
+                }
+                foreach (var item in restaurant)
+                {
+                    //db2.Rates.Find(rate);
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                    db1.Restaurants.Remove(item);
+                }
+                var rates = db2.Rates.AsQueryable();
+                if ((int)id != null)
+                {
+                    rates = rates.Where(s => s.IDUser == (int)id);
+                }
+                foreach (var item in rates)
+                {
+                    //db2.Rates.Find(rate);
+                    db2.Configuration.ValidateOnSaveEnabled = true;
+                    db2.Rates.Remove(item);
+                }
+                var user = _db.Users.AsQueryable();
+                if ((int)id != null)
+                {
+                    user = user.Where(s => s.idUser == (int)id);
+                }
+                foreach (var item in user)
+                {
+                    //db2.Rates.Find(rate);
+                    _db.Configuration.ValidateOnSaveEnabled = true;
+                    _db.Users.Remove(item);
+                }
+                db2.SaveChanges();
+                db1.SaveChanges();
+                _db.SaveChanges();
+                return RedirectToAction("AUserManage", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            return View();
+        }
+        public ActionResult AUserDelete()
+        {
+            return View();
+        }
+
 
         ///CREATE RESTAURANT--------------
         [HttpPost]
