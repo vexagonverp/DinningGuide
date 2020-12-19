@@ -614,6 +614,7 @@
     padding: 5rem 0
 }
     #delete .container {
+        margin-top: 2.5rem !important;
         width: 25rem;
         background-color: #fff;
         padding: 2.5rem 3.75rem;
