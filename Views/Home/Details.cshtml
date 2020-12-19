@@ -13,7 +13,7 @@
 <div id="Prof_page">
     <div class="info">
         <h1>Restaurant detail</h1>
-        <table>
+        @*<table>
             <tr>
                 <td>
                     @Html.DisplayNameFor(model => model.Name)
@@ -34,7 +34,13 @@
                     @Html.DisplayFor(model => model.Decription).ToHtmlString()
                 </td>
             </tr>
-        </table>
+        </table>*@
+
+    <h2>@Html.DisplayFor(model => model.Name).ToHtmlString()</h2> 
+    <h3> Restaurant / @Html.DisplayFor(model => model.Rate).ToHtmlString() <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Golden_star.svg/1200px-Golden_star.svg.png" alt="Star" width="20" height="20"> </h3>
+    <p><i>@Html.DisplayFor(model => model.Decription).ToHtmlString()</i> </p>
+
+
         @if (Session["FullName"] != null)
         {
             <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Review</a>
