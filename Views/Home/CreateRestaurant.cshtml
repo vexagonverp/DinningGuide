@@ -1,0 +1,47 @@
+﻿@using System.Data.Entity;
+@using System.Linq;
+@model Dinning_Guide.Models.Restaurant.Restaurant
+@{
+    ViewBag.Title = "CreateRestaurant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> CreateRestaurant </title>
+</head>
+<body>
+    <div id="bhSearch">
+        <div class="form-container">
+            @using (Html.BeginForm("CreateRestaurant","Home",FormMethod.Post))
+             {
+                <form method="post">
+                     @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Name, "", new { @class = "form-control", @placeholder = "Name" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Address, "", new { @class = "form-control", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Decription, "", new { @class = "form-control", @placeholder = "Description" })
+                        @Html.ValidationMessageFor(m => m.Decription, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Rate, "", new { @class = "form-control", @placeholder = "Rate" })
+                        @Html.ValidationMessageFor(m => m.Rate, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit" />
+                    </div>
+                    <input type="button" name="BtnReset" value="Reset" />
+                    <input type="button" name="Cancel" value="Cancel" />
+                </form>
+             }
+        </div>
+    </div>
+</body>
+</html>

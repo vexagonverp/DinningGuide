@@ -375,7 +375,8 @@ namespace Dinning_Guide.Controllers
                 try
                 {
                     var checkId = Session["idUser"];
-                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index", "Home");//Should catch the exception if object is null or it will always be true this is a hacky way to check thing but too bad im depressed and sleepy and it's 3am HAHAHAHHAHAHAHA
+                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index", "Home");
+                    //Should catch the exception if object is null or it will always be true
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -419,6 +420,43 @@ namespace Dinning_Guide.Controllers
             return View();
         }
 
+        ///CREATE RESTAURANT--------------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateRestaurant(Models.Restaurant.Restaurant restaurant, int? id)
+        {
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    if ((int)id == null || (int)checkId == null) return RedirectToAction("Index1", "Home");
+                    //Should catch the exception if object is null or it will always be true 
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index1", "Home");
+                }
+                var userId = Session["idUser"];
+                restaurant.ID = (int)id;
+                restaurant.IDUser = (int)userId;
+                restaurant.ID++;
+                db1.Configuration.ValidateOnSaveEnabled = true;
+                db1.Restaurants.Add(restaurant);
+                db1.SaveChanges();
+                return RedirectToAction("Index1", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Unable to save changes.Try again.");
+                return View();
+            }
+            return View();
+        }
+        public ActionResult CreateRestaurant()
+        {
+            return View();
+        }
     }
 }
