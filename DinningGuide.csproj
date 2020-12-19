@@ -440,6 +440,8 @@
     <Content Include="Views\Home\ORestaurantManage.cshtml" />
     <Content Include="Views\Home\ARestaurantManage.cshtml" />
     <Content Include="Views\Home\ARestaurantDelete.cshtml" />
+    <Content Include="Views\Home\ORestaurantCreate.cshtml" />
+    <Content Include="Views\Home\ORestaurantDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

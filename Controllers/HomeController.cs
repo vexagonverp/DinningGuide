@@ -64,6 +64,7 @@ namespace Dinning_Guide.Controllers
                 {
                     _user.Password = GetMD5(_user.Password);
                     _user.idUser++;
+                    _user.Type = 0;
                     _db.Configuration.ValidateOnSaveEnabled = true;
                     _db.Users.Add(_user);
                     _db.SaveChanges();
@@ -219,7 +220,11 @@ namespace Dinning_Guide.Controllers
                     if ((int)id==null||(int)checkId==null) return RedirectToAction("Index1", "Home");
                     //Should catch the exception if object is null or it will always be true 
                 }
-                catch(System.InvalidOperationException){
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.InvalidOperationException){
                     return RedirectToAction("Index1", "Home");
                 }
                 var userId = Session["idUser"];
@@ -254,6 +259,10 @@ namespace Dinning_Guide.Controllers
                     var checkId = Session["idUser"];
                     if ((int)id == null || (int)checkId == null) return RedirectToAction("Index1", "Home");
                     //Should catch the exception if object is null or it will always be true 
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -307,13 +316,149 @@ namespace Dinning_Guide.Controllers
             return View(restaurant);
         }
 
-        public ActionResult ORestaurantManage(int? id, int? pageNumber)
+        public ActionResult ORestaurantManage(int? pageNumber)
         {
-            return (null);
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId != 1) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch(System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var userId = Session["idUser"];
+            var records = db1.Restaurants.AsQueryable();
+            records.Where(x => x.IDUser == (int)userId || (int)userId == null);
+            records = records.OrderBy(x => x.Name);
+            return View(records.ToPagedList(pageNumber ?? 1, 100));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ORestaurantCreate(Models.Restaurant.Restaurant restaurant)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    var typeId = Session["Type"];
+                    if ((int)typeId == null || (int)checkId == null || (int)typeId != 1) return RedirectToAction("Index", "Home");
+                    //Should catch the exception if object is null or it will always be true 
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var userId = Session["idUser"];
+                restaurant.IDUser = (int)userId;
+                restaurant.Rate = 0;
+                restaurant.ID++;
+                db1.Configuration.ValidateOnSaveEnabled = true;
+                db1.Restaurants.Add(restaurant);
+                db1.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Unable to save changes.Try again.");
+                return View();
+            }
+            return View();
+        }
+        public ActionResult ORestaurantCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ORestaurantDelete(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    var typeId = Session["Type"];
+                    if ((int)typeId == null || (int)checkId == null || (int)typeId != 1 || (int) id == null) return RedirectToAction("Index", "Home");
+                    //Should catch the exception if object is null or it will always be true 
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var userId = Session["idUser"];
+                var restaurant = db1.Restaurants.AsQueryable();
+                var rate = db2.Rates.AsQueryable();
+                if ((int)userId != null)
+                {
+                    restaurant = restaurant.Where(s => s.IDUser == (int)userId);
+                }
+                foreach (var item in restaurant)
+                {
+                    //db2.Rates.Find(rate);
+                    db1.Configuration.ValidateOnSaveEnabled = true;
+                    db1.Restaurants.Remove(item);
+                }
+                if ((int)id != null)
+                {
+                    rate = rate.Where(s => s.IDRestaurant == (int)id);
+                }
+                foreach (var item in rate)
+                {
+                    //db2.Rates.Find(rate);
+                    db2.Configuration.ValidateOnSaveEnabled = true;
+                    db2.Rates.Remove(item);
+                }
+                db2.SaveChanges();
+                db1.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            return View();
+        }
+        public ActionResult ORestaurantDelete()
+        {
+            return View();
         }
 
         public ActionResult ARestaurantManage(string option, string search, double? rate, int? pageNumber, string sort)
         {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null ||(int)typeId != 2) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //if the sort parameter is null or empty then we are initializing the value as descending name  
             ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
             //if the sort value is gender then we are initializing the value as descending gender  
@@ -377,6 +522,10 @@ namespace Dinning_Guide.Controllers
                     var checkId = Session["idUser"];
                     if ((int)id == null || (int)checkId == null) return RedirectToAction("Index", "Home");
                     //Should catch the exception if object is null or it will always be true
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (System.InvalidOperationException)
                 {
