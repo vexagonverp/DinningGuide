@@ -17,8 +17,8 @@
 
         <h2>Name : @Html.DisplayFor(model => model.Name).ToHtmlString()</h2>
         <h3> Rating : @Html.DisplayFor(model => model.Rate).ToHtmlString() <i class="fa fa-star" aria-hidden="true"></i></h3>
-        <h3> Description : </h3>
-        <p>@Html.DisplayFor(model => model.Decription).ToHtmlString()</p>
+     
+        <h4>@Html.DisplayFor(model => model.Decription).ToHtmlString()</h4>
 
 
         @if (Session["FullName"] != null)
@@ -26,15 +26,20 @@
             <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
+            if (Session["Type"].ToString() == Convert.ToString(1) && Session["idUser"].ToString() == Convert.ToString(Model.IDUser))
+            {
+    <h2>@Html.ActionLink("Delete", "ORestaurantDelete", new { id = Model.ID }) | @Html.ActionLink("Edit", "RestaurantEdit", new { id = Model.ID })</h2>  
+}
         }
         else
         {
-            <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
-            <p>
-                Login to create a review
-            </p>
-            }
-            @Html.ActionLink("Back to List", "Index1")
-        </div>
+        <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
+        <p>
+            Login to create a review
+        </p>
+        }
+
+        @Html.ActionLink("Back to List", "Index1")
+    </div>
 </div>
 
