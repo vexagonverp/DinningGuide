@@ -1,0 +1,48 @@
+﻿@using System.Data.Entity;
+@using System.Linq;
+@model Dinning_Guide.Models.User.User
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> CreateReview </title>
+</head>
+<body>
+    <div id="delete">
+        <div class="form-container">
+            @using (Html.BeginForm())
+            {
+                <form method="post">
+                    @Html.AntiForgeryToken()                   
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control", @placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.LastName, "", new { @class = "form-control", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        Type: 
+                        @Html.DropDownListFor(model => model.Type,
+                        new SelectList(new[]
+                        { new {value="0",text="0"},
+                          new {value="1",text="1"},
+                          new {value="2",text="2"}
+                        }, "value", "text"), new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-light action-button" value="Edit" />
+                    </div>
+                    @Html.ActionLink("Back to List", "AUserManage")
+                </form>
+            }
+            
+        </div>
+    </div>
+</body>
+</html>

@@ -446,6 +446,8 @@
     <Content Include="Views\Home\RestaurantEdit.cshtml" />
     <Content Include="Views\Home\AUserManage.cshtml" />
     <Content Include="Views\Home\AUserDelete.cshtml" />
+    <Content Include="Views\Home\AUserEdit.cshtml" />
+    <Content Include="Views\Home\UserEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,39 @@
+﻿@using System.Data.Entity;
+@using System.Linq;
+@model Dinning_Guide.Models.User.User
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> CreateReview </title>
+</head>
+<body>
+    <div id="delete">
+        <div class="form-container">
+            @using (Html.BeginForm())
+            {
+                <form method="post">
+                    @Html.AntiForgeryToken()                   
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control", @placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.LastName, "", new { @class = "form-control", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-light action-button" value="Edit" />
+                    </div>
+                    @Html.ActionLink("Back to List", "Profile")
+                </form>
+            }
+            
+        </div>
+    </div>
+</body>
+</html>

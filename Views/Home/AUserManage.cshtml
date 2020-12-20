@@ -77,7 +77,17 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Delete", "AUserDelete", new { id = item.idUser }) | @Html.ActionLink("Edit", "AUserEdit", new { id = item.idUser })
+                            @if (Session["FullName"] != null && (int)Session["idUser"] == item.idUser)
+                            {
+                                @Html.DisplayName("Delete|Edit")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Delete", "AUserDelete", new { id = item.idUser })
+                                @Html.DisplayName("|")
+                                @Html.ActionLink("Edit", "AUserEdit", new { id = item.idUser })
+                            }
+
                         </td>
 
                     </tr>

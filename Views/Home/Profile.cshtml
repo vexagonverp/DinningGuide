@@ -15,19 +15,23 @@
         @if (Session["FullName"] != null)
         {
             <h2>Email: </h2><p>@Session["Email"].ToString()</p>
+            <h2>Full name:</h2><p>@Session["FullName"].ToString()</p>
             if ((int)Session["Type"] == 0)
             {
                 <h2>Permission: User</h2>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
             }
             if ((int)Session["Type"] == 1)
             {
                 <h2>Permission: Owner</h2>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantManage","Home")">Manage restaurant</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
             }
             if ((int)Session["Type"] == 2)
             {
                 <h2>Permission: Admin</h2>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("ARestaurantManage","Home")">Manage restaurants</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("AUserManage","Home")">Manage users</a>
             }
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Index","Home")">Back To Home</a>

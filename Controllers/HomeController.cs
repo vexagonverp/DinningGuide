@@ -156,7 +156,7 @@ namespace Dinning_Guide.Controllers
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
             var rates = db2.Rates.AsQueryable();
-
+            double number = Convert.ToDouble("0"+search);//Incase of null value
             //if a user choose the radio button option as Description  
 
             if (option == "Address")
@@ -169,7 +169,7 @@ namespace Dinning_Guide.Controllers
             }
             else if (option == "Rate")
             {
-                records = records.Where(x => x.Rate==rate || search == null);
+                records = records.Where(x => x.Rate == number || search == null);
             }
 
             else
@@ -593,6 +593,7 @@ namespace Dinning_Guide.Controllers
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
             var rates = db2.Rates.AsQueryable();
+            double number = Convert.ToDouble("0" + search);
 
             //if a user choose the radio button option as Description  
 
@@ -606,7 +607,7 @@ namespace Dinning_Guide.Controllers
             }
             else if (option == "Rate")
             {
-                records = records.Where(x => x.Rate == rate || search == null);
+                records = records.Where(x => x.Rate == number || search == null);
             }
 
             else
@@ -857,6 +858,149 @@ namespace Dinning_Guide.Controllers
             return View();
         }
 
+        public ActionResult AUserEdit(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId != 2) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            User user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("AUserEdit")] //Ha ha good luck finding this shit on stackoverflow jesus fucking christ my brain cells
+        [ValidateAntiForgeryToken]
+        public ActionResult AUserEditPost(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId != 2) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var userToUpdate = _db.Users.Find(id);
+            if (TryUpdateModel(userToUpdate, "",
+               new string[] { "FirstName", "LastName","Type" }))
+            {
+                try
+                {
+                    _db.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(userToUpdate);
+
+        }
+
+        public ActionResult UserEdit(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            User user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("UserEdit")] //Ha ha good luck finding this shit on stackoverflow jesus fucking christ my brain cells
+        [ValidateAntiForgeryToken]
+        public ActionResult UserEditPost(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var userToUpdate = _db.Users.Find(id);
+            if (TryUpdateModel(userToUpdate, "",
+               new string[] { "FirstName", "LastName"}))
+            {
+                try
+                {
+                    _db.SaveChanges();
+                    Session["FullName"] = userToUpdate.FirstName + " " + userToUpdate.LastName;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(userToUpdate);
+
+        }
 
         ///CREATE RESTAURANT--------------
         [HttpPost]

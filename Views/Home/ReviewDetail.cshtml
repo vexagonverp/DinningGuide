@@ -23,7 +23,10 @@
                         @Html.DisplayNameFor(model => model.First().Review)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.First().Rate1)
+                        Rating
+                    </th>
+                    <th>
+                        Action
                     </th>
                 </tr>
 
@@ -32,7 +35,7 @@
                     <tr>
                         <td colspan="12">
                             Records not found be the first one to create a review !
-                            @Html.ActionLink("Create here !", "Details",new { id = ViewBag.restaurantId})
+                            @Html.ActionLink("Create here !", "Details", new { id = ViewBag.restaurantId })
                         </td>
                     </tr>
                 }
@@ -54,6 +57,14 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Rate1)
+                            </td>
+                            <td>
+                                @if (Session["FullName"] != null && ((int)Session["idUser"]==item.IDUser || (int)Session["Type"]==2))
+                                {
+                                    @Html.ActionLink("Delete", "ORestaurantDelete", new { id = item.IDReview })
+                                    @Html.DisplayName("|")
+                                    @Html.ActionLink("Edit", "RestaurantEdit", new { id = item.IDReview })
+                                }
                             </td>
                         </tr>
                     }
