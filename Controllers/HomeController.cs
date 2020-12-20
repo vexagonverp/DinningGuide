@@ -358,6 +358,124 @@ namespace Dinning_Guide.Controllers
             rates = rates.Where(x => x.IDRestaurant == (int)id);
             return View(rates.ToPagedList(pageNumber ?? 1, 100));
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReviewDelete(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var checkId = Session["idUser"];
+                    var typeId = Session["Type"];
+                    if ((int)id == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                    //Should catch the exception if object is null or it will always be true
+                }
+                catch (System.NullReferenceException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var rates = db2.Rates.AsQueryable();
+                if ((int)id != null)
+                {
+                    rates = rates.Where(s => s.IDReview == (int)id);
+                }
+                foreach (var item in rates)
+                {
+                    //db2.Rates.Find(rate);
+                    db2.Configuration.ValidateOnSaveEnabled = true;
+                    db2.Rates.Remove(item);
+                }
+                db2.SaveChanges();
+                return RedirectToAction("Index1", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            return View();
+        }
+
+        public ActionResult ReviewDelete()
+        {
+            return View();
+        }
+
+        public ActionResult ReviewEdit(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Rate rate = db2.Rates.Find(id);
+            if (rate == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rate);
+        }
+
+        [HttpPost, ActionName("ReviewEdit")] //Ha ha good luck finding this shit on stackoverflow jesus fucking christ my brain cells
+        [ValidateAntiForgeryToken]
+        public ActionResult ReviewEditPost(int? id)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId == 0) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var reviewToUpdate = db2.Rates.Find(id);
+            if (TryUpdateModel(reviewToUpdate, "",
+               new string[] { "Rate1", "Review"}))
+            {
+                try
+                {
+                    db2.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(reviewToUpdate);
+
+        }
 
         public ActionResult ORestaurantManage(int? pageNumber)
         {

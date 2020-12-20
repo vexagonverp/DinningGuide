@@ -61,9 +61,9 @@
                             <td>
                                 @if (Session["FullName"] != null && ((int)Session["idUser"]==item.IDUser || (int)Session["Type"]==2))
                                 {
-                                    @Html.ActionLink("Delete", "ORestaurantDelete", new { id = item.IDReview })
-                                    @Html.DisplayName("|")
-                                    @Html.ActionLink("Edit", "RestaurantEdit", new { id = item.IDReview })
+                                    @Html.ActionLink("Delete", "ReviewDelete", new { id = item.IDReview })
+                                    @Html.DisplayName(" | ")
+                                    @Html.ActionLink("Edit", "ReviewEdit", new { id = item.IDReview })
                                 }
                             </td>
                         </tr>
@@ -77,7 +77,7 @@
         @if (Session["FullName"] != null)
         {            
             <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
-            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete all past reviews</a>
         }
         else
         {

@@ -25,7 +25,7 @@
         {
             <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewDetail","Home",new { id = @ViewBag.restaurantId})">View reviews</a>
             <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
-            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete review</a>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete all past reviews</a>
             if (Session["Type"].ToString() == Convert.ToString(1) && Session["idUser"].ToString() == Convert.ToString(Model.IDUser))
             {
     <h2>@Html.ActionLink("Delete", "ORestaurantDelete", new { id = Model.ID }) | @Html.ActionLink("Edit", "RestaurantEdit", new { id = Model.ID })</h2>  
