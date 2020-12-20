@@ -145,7 +145,7 @@ namespace Dinning_Guide.Controllers
         }
 
         /// ---------------------------------------------------------
-        
+
         public ActionResult Index1(string option, string search, double? rate, int? pageNumber, string sort)
         {
             //if the sort parameter is null or empty then we are initializing the value as descending name  
@@ -156,7 +156,17 @@ namespace Dinning_Guide.Controllers
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
             var rates = db2.Rates.AsQueryable();
-            double number = Convert.ToDouble("0"+search);//Incase of null value
+            string temp ="0";
+            try
+            {
+                double test = Convert.ToDouble(search);
+                temp = String.Copy(search);
+            }
+            catch(Exception ex)
+            {
+                temp = "0";
+            }
+            double number = Convert.ToDouble(temp);//Incase of null value
             //if a user choose the radio button option as Description  
 
             if (option == "Address")
@@ -593,7 +603,17 @@ namespace Dinning_Guide.Controllers
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = db1.Restaurants.AsQueryable();
             var rates = db2.Rates.AsQueryable();
-            double number = Convert.ToDouble("0" + search);
+            string temp = "0";
+            try
+            {
+                double test = Convert.ToDouble(search);
+                temp = String.Copy(search);
+            }
+            catch (Exception ex)
+            {
+                temp = "0";
+            }
+            double number = Convert.ToDouble(temp);//Incase of null value
 
             //if a user choose the radio button option as Description  
 
@@ -739,9 +759,18 @@ namespace Dinning_Guide.Controllers
             //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
             var records = _db.Users.AsQueryable();
 
-            //if a user choose the radio button option as Description  
-            
-            int number = Convert.ToInt32("0"+search);//incase some funny man decide to search for null
+            //if a user choose the radio button option as Description
+            string temp = "0";
+            try
+            {
+                int test = Convert.ToInt32(search);
+                temp = String.Copy(search);
+            }
+            catch (Exception ex)
+            {
+                temp = "0";
+            }
+            int number = Convert.ToInt32(temp);//incase some funny man decide to search for null
             if (option == "idUser")
             {
                 records = records.Where(x => x.idUser== number || search == null);
