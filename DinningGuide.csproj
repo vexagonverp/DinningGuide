@@ -450,6 +450,8 @@
     <Content Include="Views\Home\UserEdit.cshtml" />
     <Content Include="Views\Home\ReviewDelete.cshtml" />
     <Content Include="Views\Home\ReviewEdit.cshtml" />
+    <Content Include="Views\Home\ReviewManage.cshtml" />
+    <Content Include="Views\Home\AReviewManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

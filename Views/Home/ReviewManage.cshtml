@@ -1,0 +1,92 @@
+﻿@using System.Data.Entity;
+@using System.Linq;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Dinning_Guide.Models.Rate.Rate>
+    @{
+        ViewBag.Title = "Review Manage";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div id="bgSearch">
+        <div class="table-responsive">
+            <table id="tableSearch" class="table table-dark" border="0">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().IDReview)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().IDUser)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Review)
+                    </th>
+                    <th>
+                        Rating
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="12">
+                            Records not found find a restaurants in search page to create a review !
+                        </td>
+                    </tr>
+                }
+                else
+                {
+
+                    foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDReview)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDUser)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Review)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rate1)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete", "ReviewDelete", new { id = item.IDReview }) | @Html.ActionLink("Edit", "ReviewEdit", new { id = item.IDReview })
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+        </div>
+        <div class="info">
+        @if (Session["FullName"] != null)
+        {            
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("CreateReview","Home",new { id = @ViewBag.restaurantId})">Add Review</a>
+            <a class="btn btn-light action-button" role="button" href="@Url.Action("Delete","Home",new { id = @ViewBag.restaurantId})">Delete all past reviews</a>
+        }
+        else
+        {
+            <p>
+                Login to create a review
+            </p>
+            }
+        @Html.PagedListPager(Model, pageNumber => Url.Action("ReviewDetail", new
+        {
+           pageNumber,
+           option = Request.QueryString["option"],
+           search = Request.QueryString["search"],
+           sort = Request.QueryString["sort"]
+        }))
+        </div>
+    </div>
+
+

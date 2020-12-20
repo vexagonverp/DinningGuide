@@ -477,6 +477,113 @@ namespace Dinning_Guide.Controllers
 
         }
 
+        public ActionResult ReviewManage(int? pageNumber)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var userId = Session["idUser"];
+            var rates = db2.Rates.AsQueryable();
+            rates = rates.OrderBy(x => x.IDUser == (int)userId);
+            rates = rates.Where(x => x.IDUser == (int)userId);
+            return View(rates.ToPagedList(pageNumber ?? 1, 100));
+        }
+
+        public ActionResult AReviewManage(string option, string search, int? pageNumber, string sort)
+        {
+            try
+            {
+                var checkId = Session["idUser"];
+                var typeId = Session["Type"];
+                if ((int)typeId == null || (int)checkId == null || (int)typeId!=2) return RedirectToAction("Index", "Home");
+                //Should catch the exception if object is null or it will always be true 
+            }
+            catch (System.NullReferenceException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            catch (System.InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //if the sort parameter is null or empty then we are initializing the value as descending name  
+            ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
+            //if the sort value is gender then we are initializing the value as descending gender  
+            ViewBag.SortByDescription = sort == "Description" ? "descending description" : "Description";
+
+            //here we are converting the Db1 Restaurant to AsQueryable => we can invoke all the extension methods on variable records.  
+            var rates = db2.Rates.AsQueryable();
+            string temp = "0";
+            try
+            {
+                int test = Convert.ToInt32(search);
+                temp = String.Copy(search);
+            }
+            catch (Exception ex)
+            {
+                temp = "0";
+            }
+            int number = Convert.ToInt32(temp);//Incase of null value
+
+            //if a user choose the radio button option as Description  
+
+            if (option == "IDReview")
+            {
+                rates = rates.Where(x => x.IDReview == number || search == null);
+            }
+            else if (option == "IDRestaurant")
+            {
+                rates = rates.Where(x => x.IDRestaurant==number || search == null);
+            }
+            else if (option == "IDUser")
+            {
+                rates = rates.Where(x => x.IDUser == number || search == null);
+            }
+            else if (option == "Rating")
+            {
+                rates = rates.Where(x => x.Rate1 == number || search == null);
+            }
+            else
+            {
+                rates = rates.Where(x => x.Review.Contains(search) || search == null);
+            }
+
+            switch (sort)
+            {
+
+                case "descending name":
+                    rates = rates.OrderByDescending(x => x.IDReview);
+                    break;
+
+                case "descending rate":
+                    rates = rates.OrderByDescending(x => x.Rate1);
+                    break;
+
+                case "Address":
+                    rates = rates.OrderBy(x => x.IDRestaurant);
+                    break;
+
+                default:
+                    rates = rates.OrderBy(x => x.IDReview);
+                    break;
+
+            }
+
+            return View(rates.ToPagedList(pageNumber ?? 1, 100));
+        }
+
         public ActionResult ORestaurantManage(int? pageNumber)
         {
             try

@@ -20,19 +20,23 @@
             {
                 <h2>Permission: User</h2>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewManage","Home")">Manage past reviews</a>
             }
             if ((int)Session["Type"] == 1)
             {
                 <h2>Permission: Owner</h2>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewManage","Home")">Manage past reviews</a>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("ORestaurantManage","Home")">Manage restaurant</a>
             }
             if ((int)Session["Type"] == 2)
             {
                 <h2>Permission: Admin</h2>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("UserEdit","Home",new { id =  (int)Session["idUser"]})">Change Profile's detail</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("ReviewManage","Home")">Manage past reviews</a>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("ARestaurantManage","Home")">Manage restaurants</a>
                 <a class="btn btn-light action-button" role="button" href="@Url.Action("AUserManage","Home")">Manage users</a>
+                <a class="btn btn-light action-button" role="button" href="@Url.Action("AReviewManage","Home")">Manage all reviews</a>
             }
             <a class="btn btn-light action-button" role="button" href="@Url.Action("Index","Home")">Back To Home</a>
         }
